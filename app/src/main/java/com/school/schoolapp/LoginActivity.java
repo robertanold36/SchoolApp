@@ -1,0 +1,90 @@
+package com.school.schoolapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class LoginActivity extends AppCompatActivity {
+
+    Button login,Admin;
+    TextView Register;
+    EditText mUsername,mPassoword;
+    DatabaseSource db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        login=findViewById(R.id.loginBtn);
+        Register=findViewById(R.id.textReg);
+        mUsername=findViewById(R.id.username);
+        mPassoword=findViewById(R.id.password);
+        Admin=findViewById (R.id.admin);
+        db =new DatabaseSource(this);
+
+
+
+
+            login.setOnClickListener (new View.OnClickListener ( ) {
+                @Override
+                public void onClick(View v) {
+                    String username = mUsername.getText ( ).toString ( ).trim ( );
+                    String password = mPassoword.getText ( ).toString ( ).trim ( );
+
+                    Boolean res = db.checkUser (username, password);
+                    if (res == true) {
+
+                        Toast.makeText (LoginActivity.this, "succed login"
+                                , Toast.LENGTH_SHORT).show ( );
+
+                        startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+                    } else {
+
+                        Toast.makeText (LoginActivity.this, "no user found"
+                                , Toast.LENGTH_SHORT).show ( );
+
+                    }
+                }
+            });
+
+       Admin.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                String username=mUsername.getText().toString().trim();
+                String password=mPassoword.getText().toString().trim();
+
+
+                if(username.equals ("admin")&& password.equals ("4444333221")){
+
+
+                    Toast.makeText (LoginActivity.this, "your now login as admin"
+                            , Toast.LENGTH_SHORT).show ();
+                    startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+                }
+
+                else{
+
+                    Toast.makeText (LoginActivity.this, "fail to login"
+                            , Toast.LENGTH_SHORT).show ();
+                }
+
+            }
+        });
+
+
+
+      Register.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+          }
+      });
+    }
+}
