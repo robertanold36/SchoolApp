@@ -3,6 +3,7 @@ package com.school.schoolapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +29,20 @@ public class LoginActivity extends AppCompatActivity {
         mPassoword=findViewById(R.id.password);
         Admin=findViewById (R.id.admin);
         db =new DatabaseSource(this);
+        final SharedPreferences sharedPreferences;
+        sharedPreferences=getSharedPreferences ("user_details",MODE_PRIVATE);
 
 
+        if(sharedPreferences.contains("username") && sharedPreferences.contains("password")){
+            if(sharedPreferences.getString ("username",null).equals ("admin")) {
+                startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+            }
+            else
+            {
+                startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+
+            }
+        }
 
 
             login.setOnClickListener (new View.OnClickListener ( ) {
@@ -40,11 +53,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     Boolean res = db.checkUser (username, password);
                     if (res == true) {
-
+                        SharedPreferences.Editor editor=sharedPreferences.edit ();
+                        editor.putString ("username",username);
+                        editor.putString ("password",password);
+                        editor.commit ();
                         Toast.makeText (LoginActivity.this, "succed login"
                                 , Toast.LENGTH_SHORT).show ( );
 
                         startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+
                     } else {
 
                         Toast.makeText (LoginActivity.this, "no user found"
@@ -63,7 +80,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(username.equals ("admin")&& password.equals ("4444333221")){
 
-
+                    SharedPreferences.Editor editor=sharedPreferences.edit ();
+                    editor.putString ("username",username);
+                    editor.putString ("password",password);
+                    editor.commit ();
                     Toast.makeText (LoginActivity.this, "your now login as admin"
                             , Toast.LENGTH_SHORT).show ();
                     startActivity (new Intent (getApplicationContext (),AdminActivity.class));
