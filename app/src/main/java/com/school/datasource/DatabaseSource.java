@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.datasource;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +14,6 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME="register.db";
     private static final String TABLE_NAME="registerUser";
-    private static final String TABLE_ADMIN="ADMIN_TABLE";
     private static final String COL_1="ID";
     private static final String COL_2="name";
     private static final String COL_3="email";
@@ -22,7 +21,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String COL_5="password";
 
     public DatabaseSource(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null,
+                1);
     }
 
 
@@ -40,7 +40,6 @@ public class DatabaseSource extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME);
-        db.execSQL ("DROP TABLE IF EXISTS "+TABLE_ADMIN);
         onCreate(db);
 
     }
@@ -70,21 +69,15 @@ public class DatabaseSource extends SQLiteOpenHelper {
         String[] columns={COL_1};
         SQLiteDatabase db=getReadableDatabase();
         String selection=COL_4 + " =? " + " and " + COL_5 + " =? ";
-        String[] selelctionArgs={username,password};
-        Cursor cursor=db.query(TABLE_NAME,columns,selection,selelctionArgs,null
+        String[] selectionArgs={username,password};
+        Cursor cursor=db.query(TABLE_NAME,columns,selection,selectionArgs,null
                 ,null,null);
 
         int count=cursor.getCount();
         cursor.close();
         db.close();
 
-        if(count>0) {
-            return true;
-        }
-
-        else {
-            return false;
-        }
+        return count > 0;
 
     }
 

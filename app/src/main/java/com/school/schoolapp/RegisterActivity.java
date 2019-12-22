@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.school.datasource.DatabaseSource;
+
 public class RegisterActivity extends AppCompatActivity {
     EditText mEmail,mPassword,mName,mUsername;
     Button mRegister;

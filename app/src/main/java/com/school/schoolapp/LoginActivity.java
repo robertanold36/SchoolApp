@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.school.datasource.DatabaseSource;
+
 public class LoginActivity extends AppCompatActivity {
 
     Button login,Admin;
@@ -30,19 +32,16 @@ public class LoginActivity extends AppCompatActivity {
         Admin=findViewById (R.id.admin);
         db =new DatabaseSource(this);
         final SharedPreferences sharedPreferences;
-        sharedPreferences=getSharedPreferences ("user_details",MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences ("user_details", MODE_PRIVATE);
 
 
-        if(sharedPreferences.contains("username") && sharedPreferences.contains("password")){
-            if(sharedPreferences.getString ("username",null).equals ("admin")) {
+        if(sharedPreferences.contains("username") && sharedPreferences.contains("password"))
+            if (sharedPreferences.getString ("username", null).equals ("admin")) {
                 startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
-            }
-            else
-            {
+            } else {
                 startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
 
             }
-        }
 
 
             login.setOnClickListener (new View.OnClickListener ( ) {
@@ -51,12 +50,12 @@ public class LoginActivity extends AppCompatActivity {
                     String username = mUsername.getText ( ).toString ( ).trim ( );
                     String password = mPassoword.getText ( ).toString ( ).trim ( );
 
-                    Boolean res = db.checkUser (username, password);
-                    if (res == true) {
-                        SharedPreferences.Editor editor=sharedPreferences.edit ();
-                        editor.putString ("username",username);
-                        editor.putString ("password",password);
-                        editor.commit ();
+                    boolean res = db.checkUser (username, password);
+                    if (res) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit ( );
+                        editor.putString ("username", username);
+                        editor.putString ("password", password);
+                        editor.apply ();
                         Toast.makeText (LoginActivity.this, "succed login"
                                 , Toast.LENGTH_SHORT).show ( );
 
@@ -71,32 +70,30 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-       Admin.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                String username=mUsername.getText().toString().trim();
-                String password=mPassoword.getText().toString().trim();
+            Admin.setOnClickListener (new View.OnClickListener ( ) {
+                @Override
+                public void onClick(View v) {
+                    String username = mUsername.getText ( ).toString ( ).trim ( );
+                    String password = mPassoword.getText ( ).toString ( ).trim ( );
 
 
-                if(username.equals ("admin")&& password.equals ("4444333221")){
+                    if (username.equals ("admin") && password.equals ("4444333221")) {
 
-                    SharedPreferences.Editor editor=sharedPreferences.edit ();
-                    editor.putString ("username",username);
-                    editor.putString ("password",password);
-                    editor.commit ();
-                    Toast.makeText (LoginActivity.this, "your now login as admin"
-                            , Toast.LENGTH_SHORT).show ();
-                    startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+                        SharedPreferences.Editor editor = sharedPreferences.edit ( );
+                        editor.putString ("username", username);
+                        editor.putString ("password", password);
+                        editor.apply ();
+                        Toast.makeText (LoginActivity.this, "your now login as admin"
+                                , Toast.LENGTH_SHORT).show ( );
+                        startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+                    } else {
+
+                        Toast.makeText (LoginActivity.this, "fail to login"
+                                , Toast.LENGTH_SHORT).show ( );
+                    }
+
                 }
-
-                else{
-
-                    Toast.makeText (LoginActivity.this, "fail to login"
-                            , Toast.LENGTH_SHORT).show ();
-                }
-
-            }
-        });
+            });
 
 
 

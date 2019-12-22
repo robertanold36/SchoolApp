@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences.Editor editor=sharedPreferences.edit ();
             editor.clear ();
-            editor.commit ();
+            editor.apply ();
             startActivity (new Intent (getApplicationContext (),LoginActivity.class));
     }
 

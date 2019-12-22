@@ -10,4 +10,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="login_text">Welcome To School App<br> Login To continue</br></string>
+    <string name="robert">robert</string>
+    <string name="navigation_drawer_open">Drawer open</string>
+    <string name="navigation_drawer_close">Drawer closed</string>
+
 </resources>
