@@ -22,20 +22,19 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_login);
 
-        login=findViewById(R.id.loginBtn);
-        Register=findViewById(R.id.textReg);
-        mUsername=findViewById(R.id.username);
-        mPassoword=findViewById(R.id.password);
-        Admin=findViewById (R.id.admin);
-        db =new DatabaseSource(this);
+        login = findViewById (R.id.loginBtn);
+        mUsername = findViewById (R.id.username);
+        mPassoword = findViewById (R.id.password);
+        Admin = findViewById (R.id.admin);
+        db = new DatabaseSource (this);
         final SharedPreferences sharedPreferences;
         sharedPreferences = getSharedPreferences ("user_details", MODE_PRIVATE);
 
 
-        if(sharedPreferences.contains("username") && sharedPreferences.contains("password"))
+        if (sharedPreferences.contains ("username") && sharedPreferences.contains ("password"))
             if (sharedPreferences.getString ("username", null).equals ("admin")) {
                 startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
             } else {
@@ -44,64 +43,56 @@ public class LoginActivity extends AppCompatActivity {
             }
 
 
-            login.setOnClickListener (new View.OnClickListener ( ) {
-                @Override
-                public void onClick(View v) {
-                    String username = mUsername.getText ( ).toString ( ).trim ( );
-                    String password = mPassoword.getText ( ).toString ( ).trim ( );
+        login.setOnClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View v) {
+                String username = mUsername.getText ( ).toString ( ).trim ( );
+                String password = mPassoword.getText ( ).toString ( ).trim ( );
 
-                    boolean res = db.checkUser (username, password);
-                    if (res) {
-                        SharedPreferences.Editor editor = sharedPreferences.edit ( );
-                        editor.putString ("username", username);
-                        editor.putString ("password", password);
-                        editor.apply ();
-                        Toast.makeText (LoginActivity.this, "succed login"
-                                , Toast.LENGTH_SHORT).show ( );
+                boolean res = db.checkUser (username, password);
+                if (res) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit ( );
+                    editor.putString ("username", username);
+                    editor.putString ("password", password);
+                    editor.apply ( );
+                    Toast.makeText (LoginActivity.this, "succed login"
+                            , Toast.LENGTH_SHORT).show ( );
 
-                        startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+                    startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
 
-                    } else {
+                } else {
 
-                        Toast.makeText (LoginActivity.this, "no user found"
-                                , Toast.LENGTH_SHORT).show ( );
-
-                    }
-                }
-            });
-
-            Admin.setOnClickListener (new View.OnClickListener ( ) {
-                @Override
-                public void onClick(View v) {
-                    String username = mUsername.getText ( ).toString ( ).trim ( );
-                    String password = mPassoword.getText ( ).toString ( ).trim ( );
-
-
-                    if (username.equals ("admin") && password.equals ("4444333221")) {
-
-                        SharedPreferences.Editor editor = sharedPreferences.edit ( );
-                        editor.putString ("username", username);
-                        editor.putString ("password", password);
-                        editor.apply ();
-                        Toast.makeText (LoginActivity.this, "your now login as admin"
-                                , Toast.LENGTH_SHORT).show ( );
-                        startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
-                    } else {
-
-                        Toast.makeText (LoginActivity.this, "fail to login"
-                                , Toast.LENGTH_SHORT).show ( );
-                    }
+                    Toast.makeText (LoginActivity.this, "no user found"
+                            , Toast.LENGTH_SHORT).show ( );
 
                 }
-            });
+            }
+        });
+
+        Admin.setOnClickListener (new View.OnClickListener ( ) {
+            @Override
+            public void onClick(View v) {
+                String username = mUsername.getText ( ).toString ( ).trim ( );
+                String password = mPassoword.getText ( ).toString ( ).trim ( );
 
 
+                if (username.equals ("admin") && password.equals ("4444333221")) {
 
-      Register.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
-          }
-      });
+                    SharedPreferences.Editor editor = sharedPreferences.edit ( );
+                    editor.putString ("username", username);
+                    editor.putString ("password", password);
+                    editor.apply ( );
+                    Toast.makeText (LoginActivity.this, "your now login as admin"
+                            , Toast.LENGTH_SHORT).show ( );
+                    startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+                } else {
+
+                    Toast.makeText (LoginActivity.this, "fail to login"
+                            , Toast.LENGTH_SHORT).show ( );
+                }
+
+            }
+        });
+
     }
 }

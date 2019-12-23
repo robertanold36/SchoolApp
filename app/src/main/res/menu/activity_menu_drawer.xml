@@ -10,28 +10,50 @@
         <item
             android:id="@+id/item2"
             android:icon="@drawable/user"
-            android:title="register student"
+            android:title="register course"
             />
         <item
             android:id="@+id/item3"
             android:icon="@drawable/user"
-            android:title="register student"
+            android:title="register staff"
             />
-        <item
-            android:id="@+id/item4"
-            android:icon="@drawable/user"
-            android:title="register student"
-            />
+
 
     </group>
 
-    <item android:title="section 2">
+    <item android:title="view section">
+        <menu>
+
+       <item
+        android:id="@+id/item4"
+        android:icon="@drawable/user"
+        android:title="view all student"
+        />
+
+      <item
+        android:id="@+id/item5"
+        android:icon="@drawable/user"
+        android:title="view all courses"
+        />
+
+       <item
+        android:id="@+id/item6"
+        android:icon="@drawable/user"
+        android:title="view all staffs"
+        />
+
+            </menu>
+
+
+        </item>
+
+    <item android:title="section 3">
 
            <menu>
 
 
                <item
-                   android:id="@+id/item5"
+                   android:id="@+id/item7"
                    android:icon="@drawable/logout"
                    android:title="logout"
                    />

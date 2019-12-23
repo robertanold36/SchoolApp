@@ -60,8 +60,8 @@ public class AdminActivity extends AppCompatActivity  {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id=menuItem.getItemId ();
                 if(id==R.id.item1){
-                    Toast.makeText (AdminActivity.this, "clicked", Toast.LENGTH_SHORT)
-                            .show ();
+
+                    startActivity (new Intent (getApplicationContext (),RegisterActivity.class));
 
                 }
                 else if(id==R.id.item2){
