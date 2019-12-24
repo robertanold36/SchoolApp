@@ -16,6 +16,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME="School.db";
     private static final String TABLE_student="studentTable";
+    private static final String TABLE_course="courseTable";
+    private static final String TABLE_cp="course_program";
     private static final String COL_1="ID";
     private static final String COL_2="first_name";
     private static final String COL_3="middle_name";
@@ -28,6 +30,14 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String COL_10="gender";
     private static final String COL_11="date_of_birth";
 
+
+    private static final String COL_name="course_name";
+    private static final String COL_code="course_code";
+    private static final String COL_credit="course_credit";
+    private static final String COL_semister="course_semister";
+    private static final String COL_year="course_year";
+    private static final String COL_category="course_category";
+    private static final String COL_programme="course_programme";
 
     public DatabaseSource(@Nullable Context context) {
         super(context, DATABASE_NAME, null,
@@ -44,14 +54,20 @@ public class DatabaseSource extends SQLiteOpenHelper {
                 ""+COL_6+ " TEXT UNIQUE, "+COL_7+ " TEXT, " +COL_8+" INTEGER,"
                 +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT)");
 
+        db.execSQL ("create table "+TABLE_course+ "("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT,"
+        +COL_name+" TEXT UNIQUE,"+COL_code+" TEXT UNIQUE,"+COL_credit+" TEXT,"+COL_semister+" TEXT,"
+                +COL_year+" TEXT,"+COL_category+" TEXT,"+COL_programme+" TEXT)");
 
+       /** db.execSQL ("create table "+TABLE_cp+"("+COL_1+ " NTEGER PRIMARY KEY AUTOINCREMENT," +
+                ""+COL_programme+" TEXT," +
+                "FOREIGN KEY ("+COL_code+") REFERENCES "+TABLE_course+"("+COL_1+"))");**/
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_student);
-
+        db.execSQL ("DROP TABLE IF EXISTS "+TABLE_course);
         onCreate(db);
 
     }

@@ -53,12 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final String[] programs={"Bsc in computer science","Electronics","Engineering",
-                "Telecommunication","law"}; //selected option view array for autocompleteview
-
-
-
-
 
         first_nme=findViewById(R.id.fname);
         middle_nme=findViewById (R.id.mname);
@@ -73,11 +67,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         
         mRegister=findViewById(R.id.register);
-
-
         db=new DatabaseSource (this); //instatiate reference variable db for database
 
 
+
+
+        final String[] programs={"Bsc in computer science","Electronics","Engineering",
+                "Telecommunication","law"}; //selected option view array for autocompleteview
 
         ArrayAdapter<String> adapter=new ArrayAdapter<> (this,
                 android.R.layout.select_dialog_item,programs);//adapter to create Autocompleteview
@@ -86,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
         programme.setAdapter (adapter); 
         
 
-        //event handler for displaying datepickerdialog
+        //event handler to show datepickerdialog
         mDate.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -104,11 +100,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                 datePickerDialog.show ();
 
-
             }
         });
 
-
+        //event handler when date inserted in datePickerdDalog
         dateSetListener=new DatePickerDialog.OnDateSetListener () {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -196,7 +191,6 @@ public class RegisterActivity extends AppCompatActivity {
                         String gender=radioButton.getText ().toString ().trim ();
 
 
-
                         long res = db.createUser (first_name, middle_name, last_name,
                                 email, username, programe, year, phone, gender, date);
 
@@ -216,10 +210,8 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                         }
-
                     }
-
-                }
+               }
 
         });
 

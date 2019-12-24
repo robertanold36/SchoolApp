@@ -17,5 +17,22 @@
     <string name="first_name">first name</string>
     <string name="programe">programe</string>
     <string name="title">REGISTER NEW COURSE</string>
+    <string name="todo">TODO</string>
+    <string name="course_name">course name</string>
+    <string name="course_code">course code</string>
+    <string name="course_credit">course credit</string>
+    <string name="course_semister">course semister</string>
+    <string name="course_year">course year</string>
+    <string name="select_programme">SELECT PROGRAMME</string>
+    <string name="BSCS">Bsc In Computer science</string>
+    <string name="electronics">Electronics</string>
+    <string name="engineering">Engineering</string>
+    <string name="law">Law</string>
+    <string name="course_category">COURSE CATEGORY</string>
+    <string name="save_course">SAVE COURSE</string>
+    <string name="option">Option</string>
+    <string name="core">Core</string>
+    <string name="telecommunication">Telecommunication</string>
+    <string name="welcome_admin">WELCOME ADMIN</string>
 
 </resources>

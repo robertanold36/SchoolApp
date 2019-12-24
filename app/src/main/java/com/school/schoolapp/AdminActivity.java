@@ -2,7 +2,7 @@ package com.school.schoolapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -22,7 +22,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.navigation.NavigationView;
 
 
-import java.util.Objects;
 
 public class AdminActivity extends AppCompatActivity  {
 
@@ -30,25 +29,27 @@ public class AdminActivity extends AppCompatActivity  {
     private Toolbar toolbar;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_admin);
+
+        //get the loginValues stored by the sharedPreference
         sharedPreferences=getSharedPreferences ("user_details",MODE_PRIVATE);
 
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Objects.requireNonNull (getSupportActionBar ()).setDisplayHomeAsUpEnabled (true);
+        getSupportActionBar ().setDisplayHomeAsUpEnabled (true);
 
-         getSupportActionBar().setDisplayShowTitleEnabled (true);
+        getSupportActionBar().setDisplayShowTitleEnabled (true);
 
         DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle;
         toggle = new ActionBarDrawerToggle (this,drawerLayout,toolbar
                 ,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+
 
         drawerLayout.addDrawerListener (toggle);
         toggle.syncState ();
@@ -79,7 +80,14 @@ public class AdminActivity extends AppCompatActivity  {
 
                 }
                 else if(id==R.id.item5){
-                   logoutAdmin (null);
+                    Toast.makeText (AdminActivity.this, "clicked", Toast.LENGTH_SHORT)
+                            .show ();
+                    startActivity (new Intent (getApplicationContext (),Swipe.class));
+                }
+
+                else if(id==R.id.logout){
+                    logoutAdmin (null);  //call method when user logout
+
                 }
 
                 DrawerLayout drawerLayout1=findViewById (R.id.drawer_layout);
@@ -91,6 +99,7 @@ public class AdminActivity extends AppCompatActivity  {
 
     }
 
+    //method to clear sharedPreference key value when user logout
     public void logoutAdmin(View view){
         SharedPreferences.Editor editor=sharedPreferences.edit ();
         editor.clear ();
@@ -99,9 +108,6 @@ public class AdminActivity extends AppCompatActivity  {
 
     }
 
-    /**public void swipe(View v){
-        startActivity (new Intent (getApplicationContext (),Swipe.class));
 
-    }**/
 
 }

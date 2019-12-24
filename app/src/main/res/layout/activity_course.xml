@@ -38,7 +38,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/oval"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/todo"
             />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:inputType="text"
-            android:hint="course name"/>
+            android:hint="@string/course_name"/>
 
         <EditText
             android:layout_width="264dp"
@@ -57,7 +57,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:inputType="text"
-            android:hint="course code"/>
+            android:hint="@string/course_code"/>
 
         <EditText
             android:layout_width="264dp"
@@ -66,7 +66,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:inputType="number"
-            android:hint="course credit"/>
+            android:hint="@string/course_credit"/>
 
         <EditText
             android:layout_width="264dp"
@@ -75,7 +75,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:inputType="number"
-            android:hint="course semister"/>
+            android:hint="@string/course_semister"/>
 
         <EditText
             android:layout_width="264dp"
@@ -84,61 +84,26 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:inputType="number"
-            android:hint="course year"/>
+            android:hint="@string/course_year"/>
 
         <TextView
-            android:id="@+id/programme"
+            android:id="@+id/txtselect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="SELECT PROGRAMME"
+            android:text="@string/select_programme"
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <CheckBox
-            android:gravity="center"
+        <AutoCompleteTextView
             android:layout_width="264dp"
             android:layout_height="wrap_content"
-            android:id="@+id/CS"
-            android:text="Bsc In Computer science"
+            android:inputType="textAutoComplete"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/programme"/>
 
-            />
-
-        <CheckBox
-            android:gravity="center"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/EL"
-            android:text="Electronics"
-
-            />
-
-        <CheckBox
-            android:gravity="center"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/ENG"
-            android:text="Engineering"
-
-            />
-        <CheckBox
-            android:gravity="center"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/TC"
-            android:text="Telecommunication"
-
-            />
-        <CheckBox
-            android:gravity="center"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/law"
-            android:text="Law"
-            android:layout_marginBottom="20dp"
-            />
 
     <LinearLayout
         android:layout_width="264dp"
@@ -151,7 +116,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COURSE CATEGORY"
+                android:text="@string/course_category"
                 android:id="@+id/txtCategory"
                 android:textSize="15sp"
                 android:textStyle="bold"/>
@@ -165,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/core"
-                    android:text="Core"
+                    android:text="@string/core"
                     />
 
 
@@ -173,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/option"
-                    android:text="Option"
+                    android:text="@string/option"
                     />
             </RadioGroup>
     </LinearLayout>
@@ -184,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="20dp"
-            android:text="SAVE COURSE"
+            android:text="@string/save_course"
             android:background="@drawable/round"/>
 
 
