@@ -4,15 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F9F9F9"
-
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_marginTop="16dp"
+    android:gravity="center"
     tools:context=".CourseActivity">
 
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@android:dimen/app_icon_size"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -25,7 +27,165 @@
             android:text="@string/title"
             android:textColor="#5D44F8"
             android:textSize="20sp"
-            android:textStyle="italic" />
+            android:layout_marginTop="16dp"
+            android:textStyle="italic"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:src="@drawable/graduate"
+            android:id="@+id/header_image"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/oval"
+            android:contentDescription="TODO"
+            />
+
+        <EditText
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cname"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="text"
+            android:hint="course name"/>
+
+        <EditText
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cCode"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="text"
+            android:hint="course code"/>
+
+        <EditText
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cCredit"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="number"
+            android:hint="course credit"/>
+
+        <EditText
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cSemister"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="number"
+            android:hint="course semister"/>
+
+        <EditText
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cYear"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="number"
+            android:hint="course year"/>
+
+        <TextView
+            android:id="@+id/programme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="SELECT PROGRAMME"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:gravity="center"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/CS"
+            android:text="Bsc In Computer science"
+
+            />
+
+        <CheckBox
+            android:gravity="center"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/EL"
+            android:text="Electronics"
+
+            />
+
+        <CheckBox
+            android:gravity="center"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/ENG"
+            android:text="Engineering"
+
+            />
+        <CheckBox
+            android:gravity="center"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/TC"
+            android:text="Telecommunication"
+
+            />
+        <CheckBox
+            android:gravity="center"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/law"
+            android:text="Law"
+            android:layout_marginBottom="20dp"
+            />
+
+    <LinearLayout
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COURSE CATEGORY"
+                android:id="@+id/txtCategory"
+                android:textSize="15sp"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/category">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/core"
+                    android:text="Core"
+                    />
+
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/option"
+                    android:text="Option"
+                    />
+            </RadioGroup>
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="20dp"
+            android:text="SAVE COURSE"
+            android:background="@drawable/round"/>
 
 
     </LinearLayout>

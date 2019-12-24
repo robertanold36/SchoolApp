@@ -65,8 +65,7 @@ public class AdminActivity extends AppCompatActivity  {
 
                 }
                 else if(id==R.id.item2){
-                    Toast.makeText (AdminActivity.this, "clicked", Toast.LENGTH_SHORT)
-                            .show ();
+                   startActivity (new Intent (getApplicationContext (),CourseActivity.class));
 
                 }
                 else if(id==R.id.item3){
