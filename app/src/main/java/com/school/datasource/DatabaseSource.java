@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 
 
 
+
 public class DatabaseSource extends SQLiteOpenHelper {
+
 
     private static final String DATABASE_NAME="School.db";
     private static final String TABLE_student="studentTable";
@@ -27,14 +29,10 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String COL_11="date_of_birth";
 
 
-
-
     public DatabaseSource(@Nullable Context context) {
         super(context, DATABASE_NAME, null,
                 1);
     }
-
-
 
 
     @Override
@@ -48,12 +46,12 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
 
 
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_student);
+
         onCreate(db);
 
     }
@@ -64,25 +62,26 @@ public class DatabaseSource extends SQLiteOpenHelper {
                            String phone_number,String gender,String DOB ){
 
 
-       SQLiteDatabase db=this.getWritableDatabase();
-        ContentValues content=new ContentValues();
-        content.put(COL_2,fname);
-        content.put(COL_3,mname);
-        content.put (COL_4,lname);
-        content.put (COL_5,email);
-        content.put (COL_6,username);
-        content.put (COL_7,programme);
-        content.put (COL_8,year);
-        content.put (COL_9,phone_number);
-        content.put(COL_10,gender);
-        content.put(COL_11,DOB);
+              SQLiteDatabase db=this.getWritableDatabase();
 
 
-        long res =db.insert(TABLE_student,null,content);
+               ContentValues content = new ContentValues ( );
+               content.put (COL_2, fname);
+               content.put (COL_3, mname);
+               content.put (COL_4, lname);
+               content.put (COL_5, email);
+               content.put (COL_6, username);
+               content.put (COL_7, programme);
+               content.put (COL_8, year);
+               content.put (COL_9, phone_number);
+               content.put (COL_10, gender);
+               content.put (COL_11, DOB);
 
+               long res = db.insert (TABLE_student, null, content);
 
-        db.close();
-        return  res;
+               db.close ( );
+               return res;
+
 
     }
 

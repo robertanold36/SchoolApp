@@ -4,12 +4,14 @@ package com.school.schoolapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.R.style;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,7 +34,8 @@ public class RegisterActivity extends AppCompatActivity {
     //declare edited text Data type variable
     EditText first_nme,middle_nme,last_nme,mEmail,mUsername,mYear,mPhone,mDate;
     RadioGroup mGender;
-    private String gender;
+
+
 
     private static  final String TAG="RegisterActivity";
 
@@ -106,7 +109,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
-        
         dateSetListener=new DatePickerDialog.OnDateSetListener () {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -119,20 +121,15 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-
-
-
-
         //event handler after clicking register button
         mRegister.setOnClickListener (new View.OnClickListener ( ) {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
 
+
                 int selectedId=mGender.getCheckedRadioButtonId ();
                 RadioButton radioButton=findViewById (selectedId);
-
-                String gender=radioButton.getText ().toString ().trim ();
-
 
                 String first_name=first_nme.getText ().toString ().trim ();
                 String middle_name=middle_nme.getText ().toString ().trim ();
@@ -144,30 +141,88 @@ public class RegisterActivity extends AppCompatActivity {
                 String phone=mPhone.getText ().toString ().trim ();
                 String date=mDate.getText ().toString ().trim ();
 
-                long res=db.createUser (first_name,middle_name,last_name,
-                        email,username,programe,year,phone,gender,date);
 
-                if(res>0){
+                    if(TextUtils.isEmpty (first_name)){
+                        first_nme.setError ("field is required");
+                        return;
+                    }
 
-                    Toast.makeText (RegisterActivity.this, "succedd register a student",
-                            Toast.LENGTH_SHORT).show ();
-                    startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+                    else if(TextUtils.isEmpty (last_name)){
+                         last_nme.setError ("field is required");
+                         return;
+                    }
+
+                    else if(TextUtils.isEmpty (middle_name)){
+                        middle_nme.setError ("field is required");
+                        return;
+                    }
+                    else if(TextUtils.isEmpty (email)){
+                        mEmail.setError ("field is required");
+                        return;
+                    }
+
+                    else if(TextUtils.isEmpty (username)){
+                        mUsername.setError ("field is required");
+                        return;
+                    }
+                    else if(TextUtils.isEmpty (programe)){
+                        programme.setError ("field is required");
+                        return;
+                    }
+
+                    else if (mYear.equals ("")){
+                         mYear.setError ("field required");
+                         return;
+                    }
+
+                    else if(TextUtils.isEmpty (phone)){
+                        mPhone.setError ("field is required");
+                        return;
+                    }
+
+
+                else if(mGender.getCheckedRadioButtonId ()<=0){
+                    RadioButton malebtn=findViewById (R.id.male);
+                    malebtn.setError ("field is required");
+                    return;
                 }
 
-                else
-                {
+                    else if(TextUtils.isEmpty (date)){
+                        mDate.setError ("field is required");
+                        return;
+                    }
 
-                    Toast.makeText (RegisterActivity.this, "fail to register a student"
-                            , Toast.LENGTH_SHORT).show ();
+                    else {
+                        String gender=radioButton.getText ().toString ().trim ();
+
+
+
+                        long res = db.createUser (first_name, middle_name, last_name,
+                                email, username, programe, year, phone, gender, date);
+
+                        if (res > 0) {
+
+                            Toast.makeText (RegisterActivity.this,
+                                    "succedd register a student",
+                                    Toast.LENGTH_SHORT).show ( );
+                            Intent intent=new Intent
+                                    (RegisterActivity.this,AdminActivity.class);
+                            startActivity (intent);
+                        } else {
+
+                            Toast.makeText (RegisterActivity.this,
+                                    " register doesnt exist email or username arleady exist "
+                                    , Toast.LENGTH_SHORT).show ();
+
+
+                        }
+
+                    }
 
                 }
 
-
-            }
         });
 
-
     }
-
 
 }
