@@ -17,7 +17,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String DATABASE_NAME="School.db";
     private static final String TABLE_student="studentTable";
     private static final String TABLE_course="courseTable";
-    private static final String TABLE_cp="course_program";
+
     private static final String COL_1="ID";
     private static final String COL_2="first_name";
     private static final String COL_3="middle_name";
@@ -54,9 +54,9 @@ public class DatabaseSource extends SQLiteOpenHelper {
                 ""+COL_6+ " TEXT UNIQUE, "+COL_7+ " TEXT, " +COL_8+" INTEGER,"
                 +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT)");
 
-        db.execSQL ("create table "+TABLE_course+ "("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT,"
-        +COL_name+" TEXT UNIQUE,"+COL_code+" TEXT UNIQUE,"+COL_credit+" TEXT,"+COL_semister+" TEXT,"
-                +COL_year+" TEXT,"+COL_category+" TEXT,"+COL_programme+" TEXT)");
+        db.execSQL ("create table "+TABLE_course+ "("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT, "
+        +COL_name+" TEXT UNIQUE, "+COL_code+" TEXT UNIQUE, "+COL_credit+" TEXT, "+COL_semister+" TEXT, "
+                +COL_year+" TEXT, "+COL_category+" TEXT, "+COL_programme+" TEXT)");
 
        /** db.execSQL ("create table "+TABLE_cp+"("+COL_1+ " NTEGER PRIMARY KEY AUTOINCREMENT," +
                 ""+COL_programme+" TEXT," +
@@ -66,8 +66,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_student);
-        db.execSQL ("DROP TABLE IF EXISTS "+TABLE_course);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_student);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_course);
         onCreate(db);
 
     }
@@ -81,7 +81,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
               SQLiteDatabase db=this.getWritableDatabase();
 
 
-               ContentValues content = new ContentValues ( );
+               ContentValues content = new ContentValues ();
                content.put (COL_2, fname);
                content.put (COL_3, mname);
                content.put (COL_4, lname);
@@ -95,10 +95,29 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
                long res = db.insert (TABLE_student, null, content);
 
-               db.close ( );
+               db.close ();
                return res;
 
 
+    }
+
+    public long createCourse(String cname,String cCode,String ccredit,
+                             String cSemister,String cYear,String cProgram,String cCategory)
+    {
+        SQLiteDatabase db=this.getWritableDatabase ();
+        ContentValues contentValues=new ContentValues ();
+
+        contentValues.put(COL_name,cname);
+        contentValues.put(COL_code,cCode);
+        contentValues.put(COL_credit,ccredit);
+        contentValues.put(COL_semister,cSemister);
+        contentValues.put(COL_year,cYear);
+        contentValues.put(COL_programme,cProgram);
+        contentValues.put(COL_category,cCategory);
+
+        long res=db.insert (TABLE_course,null,contentValues);
+        db.close ();
+        return res;
     }
 
     public boolean checkUser(String username,String password){

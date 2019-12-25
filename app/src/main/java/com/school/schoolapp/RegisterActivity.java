@@ -208,7 +208,6 @@ public class RegisterActivity extends AppCompatActivity {
                                     " register doesnt exist email or username arleady exist "
                                     , Toast.LENGTH_SHORT).show ();
 
-
                         }
                     }
                }
