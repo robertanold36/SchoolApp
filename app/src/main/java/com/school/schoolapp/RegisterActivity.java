@@ -1,6 +1,7 @@
 package com.school.schoolapp;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.R.style;
@@ -10,6 +11,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +29,7 @@ import android.widget.Toast;
 import com.school.datasource.DatabaseSource;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -82,8 +85,9 @@ public class RegisterActivity extends AppCompatActivity {
         programme.setAdapter (adapter); 
         
 
-        //event handler to show datepickerdialog
+        //event handler to show date_picker_dialog
         mDate.setOnClickListener (new View.OnClickListener () {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 Calendar calendar=Calendar.getInstance ();
@@ -91,11 +95,12 @@ public class RegisterActivity extends AppCompatActivity {
                 int month=calendar.get(Calendar.MONTH);
                 int day= calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog=new DatePickerDialog(RegisterActivity.this,
+                DatePickerDialog datePickerDialog;
+                datePickerDialog = new DatePickerDialog(RegisterActivity.this,
                         style.Theme_Holo_Light_Dialog_MinWidth
                        ,dateSetListener,day,month,year);
 
-                datePickerDialog.getWindow ().setBackgroundDrawable
+                Objects.requireNonNull (datePickerDialog.getWindow ( )).setBackgroundDrawable
                         (new ColorDrawable (Color.TRANSPARENT));
 
                 datePickerDialog.show ();
@@ -103,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        //event handler when date inserted in datePickerdDalog
+        //event handler when date inserted in date_Picker_dialog
         dateSetListener=new DatePickerDialog.OnDateSetListener () {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -132,72 +137,73 @@ public class RegisterActivity extends AppCompatActivity {
                 String email=mEmail.getText ().toString ().trim ();
                 String username=mUsername.getText ().toString ().trim ();
                 String programe=programme.getText ().toString ().trim ();
-                int year=mYear.getInputType ();
+                String year=mYear.getText ().toString ().trim ();
                 String phone=mPhone.getText ().toString ().trim ();
                 String date=mDate.getText ().toString ().trim ();
 
 
                     if(TextUtils.isEmpty (first_name)){
                         first_nme.setError ("field is required");
-                        return;
+
                     }
 
                     else if(TextUtils.isEmpty (last_name)){
                          last_nme.setError ("field is required");
-                         return;
+
                     }
 
                     else if(TextUtils.isEmpty (middle_name)){
                         middle_nme.setError ("field is required");
-                        return;
+
                     }
                     else if(TextUtils.isEmpty (email)){
                         mEmail.setError ("field is required");
-                        return;
+
                     }
 
                     else if(TextUtils.isEmpty (username)){
                         mUsername.setError ("field is required");
-                        return;
+
                     }
                     else if(TextUtils.isEmpty (programe)){
                         programme.setError ("field is required");
-                        return;
+
                     }
 
-                    else if (mYear.equals ("")){
-                         mYear.setError ("field required");
-                         return;
+                    else if(TextUtils.isEmpty (year)){
+                        mYear.setError ("field is required");
+
                     }
+
 
                     else if(TextUtils.isEmpty (phone)){
                         mPhone.setError ("field is required");
-                        return;
+
                     }
 
 
-                else if(mGender.getCheckedRadioButtonId ()<=0){
-                    RadioButton malebtn=findViewById (R.id.male);
-                    malebtn.setError ("field is required");
-                    return;
+                 else if(mGender.getCheckedRadioButtonId ()<=0){
+                    RadioButton male_btn=findViewById (R.id.male);
+                    male_btn.setError ("field is required");
+
                 }
 
                     else if(TextUtils.isEmpty (date)){
                         mDate.setError ("field is required");
-                        return;
+
                     }
 
                     else {
                         String gender=radioButton.getText ().toString ().trim ();
 
 
-                        long res = db.createUser (first_name, middle_name, last_name,
+                        long res = db.createStudent (first_name, middle_name, last_name,
                                 email, username, programe, year, phone, gender, date);
 
                         if (res > 0) {
 
                             Toast.makeText (RegisterActivity.this,
-                                    "succedd register a student",
+                                    "succeed register a student",
                                     Toast.LENGTH_SHORT).show ( );
                             Intent intent=new Intent
                                     (RegisterActivity.this,AdminActivity.class);
@@ -205,7 +211,7 @@ public class RegisterActivity extends AppCompatActivity {
                         } else {
 
                             Toast.makeText (RegisterActivity.this,
-                                    " register doesnt exist email or username arleady exist "
+                                    " register doesn't exist email or username arleady exist "
                                     , Toast.LENGTH_SHORT).show ();
 
                         }

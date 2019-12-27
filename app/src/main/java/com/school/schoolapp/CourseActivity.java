@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -70,33 +69,33 @@ public class CourseActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty (name_course)){
                     course_name.setError ("Text field is empty");
-                    return;
+
                 }
                else if(TextUtils.isEmpty (code_course)){
                     course_code.setError ("Text field is empty");
-                    return;
+
                 }
                else if(TextUtils.isEmpty (credit_course)){
                     course_credit.setError ("Text field is empty");
-                    return;
+
                 }
                 else if(TextUtils.isEmpty (semister_course)){
                     course_semister.setError ("Text field is empty");
-                    return;
+
                 }
                else if(TextUtils.isEmpty (year_course)){
                     course_year.setError ("Text field is empty");
-                    return;
+
                 }
                else if(TextUtils.isEmpty (program_course)){
                     autoCompleteTextView.setError ("Text field is empty");
-                    return;
+
                 }
 
                else if(category.getCheckedRadioButtonId ()<=0){
                    RadioButton option=findViewById (R.id.option);
                    option.setError ("field required");
-                   return;
+
                 }
 
 

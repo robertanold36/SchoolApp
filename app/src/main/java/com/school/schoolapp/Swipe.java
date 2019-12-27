@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import static com.school.schoolapp.R.color.TransparentWhite;
 
 public class Swipe extends AppCompatActivity {
 

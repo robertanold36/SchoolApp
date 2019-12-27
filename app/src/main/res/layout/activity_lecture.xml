@@ -8,7 +8,7 @@
     android:layout_marginTop="@dimen/activity_horizontal_margin"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".LectureActivity">
 
     <LinearLayout
         android:gravity="center"
@@ -17,36 +17,35 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@android:dimen/app_icon_size">
 
-
         <TextView
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:id="@+id/header_title"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="REGISTER NEW STUDENT"
+            android:text="REGISTER NEW LECTURE"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:textStyle="italic"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_height="130dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/profile"
-        android:contentDescription="@string/todo"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/profile"
+            android:contentDescription="@string/todo"/>
 
-    <EditText
-        android:id="@+id/fname"
-        android:layout_width="273dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:ems="10"
-        android:hint="first name"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/fname"
+            android:layout_width="273dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="first name"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/mname"
@@ -68,44 +67,36 @@
             android:hint="last name"
             android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="269dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:ems="10"
-        android:hint="email"
-        android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="email"
+            android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="264dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:ems="10"
-        android:hint="username"
-        android:inputType="textPersonName" />
-
-        <AutoCompleteTextView
-            android:id="@+id/programme"
+        <EditText
+            android:id="@+id/username"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:ems="10"
-            android:hint="@string/programe"
-            android:inputType="textAutoComplete"/>
+            android:hint="username"
+            android:inputType="textPersonName" />
 
-        <EditText
+        <AutoCompleteTextView
+            android:id="@+id/course_code"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:id="@+id/year"
-            android:hint="year"
-            android:inputType="number"/>
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:ems="10"
+            android:hint="course code"
+            android:inputType="textAutoComplete"/>
+
 
         <EditText
             android:id="@+id/phone"
@@ -134,20 +125,20 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/gender">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/male"
-                android:text="Male"
-                />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/male"
+                    android:text="Male"
+                    />
 
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/female"
-                android:text="Female"
-                />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/female"
+                    android:text="Female"
+                    />
             </RadioGroup>
 
         </LinearLayout>
@@ -163,15 +154,16 @@
             />
 
         <Button
-        android:id="@+id/register"
-        android:layout_width="182dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="16dp"
-        android:text="SAVE STUDENT"
-        android:background="@drawable/round"/>
+            android:id="@+id/register"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="16dp"
+            android:text="SAVE LECTURE"
+            android:background="@drawable/round"/>
 
 
     </LinearLayout>
+
 
 </ScrollView>

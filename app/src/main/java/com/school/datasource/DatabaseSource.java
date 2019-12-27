@@ -17,6 +17,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String DATABASE_NAME="School.db";
     private static final String TABLE_student="studentTable";
     private static final String TABLE_course="courseTable";
+    private static final String TABLE_lecture="lectureTable";
 
     private static final String COL_1="ID";
     private static final String COL_2="first_name";
@@ -29,12 +30,16 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String COL_9="phone_number";
     private static final String COL_10="gender";
     private static final String COL_11="date_of_birth";
+    private static final String COL_12="password";
+
+
+
 
 
     private static final String COL_name="course_name";
     private static final String COL_code="course_code";
     private static final String COL_credit="course_credit";
-    private static final String COL_semister="course_semister";
+    private static final String COL_semester ="course_semister";
     private static final String COL_year="course_year";
     private static final String COL_category="course_category";
     private static final String COL_programme="course_programme";
@@ -51,16 +56,19 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
         db.execSQL ("create table "+TABLE_student+"("+COL_1+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 +COL_2+" TEXT,"+COL_3+" TEXT, "+COL_4+" TEXT, "+COL_5+ " TEXT UNIQUE, " +
-                ""+COL_6+ " TEXT UNIQUE, "+COL_7+ " TEXT, " +COL_8+" INTEGER,"
-                +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT)");
+                ""+COL_6+ " TEXT UNIQUE, "+COL_7+ " TEXT, " +COL_8+" TEXT,"
+                +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT,"+COL_12+" TEXT)");
 
         db.execSQL ("create table "+TABLE_course+ "("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT, "
-        +COL_name+" TEXT UNIQUE, "+COL_code+" TEXT UNIQUE, "+COL_credit+" TEXT, "+COL_semister+" TEXT, "
+     +COL_name+" TEXT UNIQUE, "+COL_code+" TEXT UNIQUE, "+COL_credit+" TEXT, "+ COL_semester +" TEXT,"
                 +COL_year+" TEXT, "+COL_category+" TEXT, "+COL_programme+" TEXT)");
 
-       /** db.execSQL ("create table "+TABLE_cp+"("+COL_1+ " NTEGER PRIMARY KEY AUTOINCREMENT," +
-                ""+COL_programme+" TEXT," +
-                "FOREIGN KEY ("+COL_code+") REFERENCES "+TABLE_course+"("+COL_1+"))");**/
+
+
+        db.execSQL ("create table "+TABLE_lecture+"("+COL_1+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                +COL_2+" TEXT,"+COL_3+" TEXT, "+COL_4+" TEXT, "+COL_5+ " TEXT UNIQUE, " +
+     ""+COL_6+ " TEXT UNIQUE,"+COL_code+" TEXT," +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT)");
+
 
     }
 
@@ -73,8 +81,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
     }
 
 
-    public long createUser(String fname,String mname,String lname,String email,
-                           String username,String programme,int year,
+    public long createStudent(String fname,String mname,String lname,String email,
+                           String username,String programme,String year,
                            String phone_number,String gender,String DOB ){
 
 
@@ -92,6 +100,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
                content.put (COL_9, phone_number);
                content.put (COL_10, gender);
                content.put (COL_11, DOB);
+               content.put (COL_12,lname);
 
                long res = db.insert (TABLE_student, null, content);
 
@@ -110,7 +119,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
         contentValues.put(COL_name,cname);
         contentValues.put(COL_code,cCode);
         contentValues.put(COL_credit,ccredit);
-        contentValues.put(COL_semister,cSemister);
+        contentValues.put(COL_semester,cSemister);
         contentValues.put(COL_year,cYear);
         contentValues.put(COL_programme,cProgram);
         contentValues.put(COL_category,cCategory);
@@ -120,11 +129,37 @@ public class DatabaseSource extends SQLiteOpenHelper {
         return res;
     }
 
+
+    public long createLecture(String fname,String mname,String lname,
+     String email,String username,String course_code,String phone_number,String gender,String DOB)
+    {
+        SQLiteDatabase db=this.getWritableDatabase ();
+        ContentValues content=new ContentValues ();
+        content.put (COL_2, fname);
+        content.put (COL_3, mname);
+        content.put (COL_4, lname);
+        content.put (COL_5, email);
+        content.put (COL_6, username);
+        content.put (COL_code,course_code);
+        content.put (COL_9,phone_number);
+        content.put (COL_10,gender);
+        content.put (COL_11,DOB);
+
+        long res=db.insert (TABLE_lecture,null,content);
+        db.close ();
+        return res;
+
+
+    }
+
+
+
+
     public boolean checkUser(String username,String password){
 
         String[] columns={COL_1};
         SQLiteDatabase db=getReadableDatabase();
-        String selection=COL_4 + " =? " + " and " + COL_5 + " =? ";
+        String selection=COL_6 + " =? " + " and " + COL_12 + " =? ";
         String[] selectionArgs={username,password};
         Cursor cursor=db.query(TABLE_student,columns,selection,selectionArgs,null
                 ,null,null);
@@ -136,6 +171,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
         return count > 0;
 
     }
+
+
 
 
 }
