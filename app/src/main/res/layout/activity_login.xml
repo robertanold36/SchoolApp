@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="25dp"
         android:gravity="start"
-        android:paddingBottom="100dp"
+        android:paddingBottom="20dp"
         android:text="@string/login_text"
         android:textAlignment="textStart"
         android:layout_marginTop="16dp"
@@ -49,6 +49,7 @@
         android:layout_height="155dp"
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="10dp"
         android:background="#FFFFFF"
         app:srcCompat="@drawable/student" />
 
@@ -57,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="16dp"
             android:height="@android:dimen/app_icon_size"
             android:drawableLeft="@drawable/user"
             android:ems="10"

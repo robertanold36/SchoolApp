@@ -40,8 +40,6 @@ public class AdminActivity extends AppCompatActivity  {
         setContentView (R.layout.activity_admin);
 
 
-
-
         //get the loginValues stored by the sharedPreference
         sharedPreferences=getSharedPreferences ("user_details",MODE_PRIVATE);
 

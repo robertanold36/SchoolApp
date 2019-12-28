@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/item1"
+            android:icon="@drawable/user"
+            android:title="Registration"
+            />
+
+        <item
+            android:id="@+id/item2"
+            android:icon="@drawable/list"
+            android:title="Course selected"
+            />
+
+        <item
+            android:id="@+id/item3"
+            android:icon="@drawable/user"
+            android:title="personal details"
+            />
+    </group>
+
+    <item android:title="privacy">
+        <menu>
+            <item
+                android:id="@+id/item4"
+                android:title="change password"
+                android:icon="@drawable/password"
+                />
+        </menu>
+    </item>
+
+
+    <item android:title="user">
+
+        <menu>
+            <item
+                android:id="@+id/item5"
+                android:title="@string/logout"
+                android:icon="@drawable/signout"
+                />
+        </menu>
+    </item>
+
+</menu>

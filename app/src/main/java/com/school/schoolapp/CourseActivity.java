@@ -37,6 +37,7 @@ public class CourseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId ( ) == android.R.id.home) {
             startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+            finish ();
         }
         return true;
     }

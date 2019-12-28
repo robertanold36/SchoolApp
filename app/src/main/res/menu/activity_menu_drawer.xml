@@ -26,19 +26,19 @@
 
        <item
         android:id="@+id/item4"
-        android:icon="@drawable/user"
+        android:icon="@drawable/list"
         android:title="view all student"
         />
 
       <item
         android:id="@+id/item5"
-        android:icon="@drawable/user"
+        android:icon="@drawable/list"
         android:title="view all courses"
         />
 
        <item
         android:id="@+id/item6"
-        android:icon="@drawable/user"
+        android:icon="@drawable/list"
         android:title="view all staffs"
         />
 
@@ -54,8 +54,8 @@
 
                <item
                    android:id="@+id/logout"
-                   android:icon="@drawable/logout"
-                   android:title="logout"
+                   android:icon="@drawable/signout"
+                   android:title="signo"
                    />
            </menu>
 

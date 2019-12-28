@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId ()==android.R.id.home){
             startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+            finish ();
         }
         return true;
     }
@@ -151,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String last_name=last_nme.getText ().toString ().trim ();
                 String email=mEmail.getText ().toString ().trim ();
                 String username=mUsername.getText ().toString ().trim ();
-                String programe=programme.getText ().toString ().trim ();
+                String program=programme.getText ().toString ().trim ();
                 String year=mYear.getText ().toString ().trim ();
                 String phone=mPhone.getText ().toString ().trim ();
                 String date=mDate.getText ().toString ().trim ();
@@ -180,7 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
                         mUsername.setError ("field is required");
 
                     }
-                    else if(TextUtils.isEmpty (programe)){
+                    else if(TextUtils.isEmpty (program)){
                         programme.setError ("field is required");
 
                     }
@@ -213,7 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                         long res = db.createStudent (first_name, middle_name, last_name,
-                                email, username, programe, year, phone, gender, date);
+                                email, username, program, year, phone, gender, date);
 
                         if (res > 0) {
 

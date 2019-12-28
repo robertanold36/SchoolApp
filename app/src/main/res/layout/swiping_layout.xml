@@ -24,7 +24,6 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
