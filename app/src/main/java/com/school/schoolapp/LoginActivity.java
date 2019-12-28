@@ -42,10 +42,13 @@ public class LoginActivity extends AppCompatActivity {
             if (Objects.equals (sharedPreferences.getString ("username", null),
                     "admin")) {
                 startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+                finish ();
             } else {
                 startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+                finish ();
 
             }
+
 
 
         login.setOnClickListener (new View.OnClickListener ( ) {
@@ -64,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                             , Toast.LENGTH_SHORT).show ( );
 
                     startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+                    finish ();
 
                 } else {
 
@@ -90,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText (LoginActivity.this, "your now login as admin"
                             , Toast.LENGTH_SHORT).show ( );
                     startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+                    finish ();
                 } else {
 
                     Toast.makeText (LoginActivity.this, "fail to login"

@@ -35,10 +35,8 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId ()){
-            case android.R.id.home:
-                startActivity (new Intent (getApplicationContext (),AdminActivity.class));
-                break;
+        if (item.getItemId ( ) == android.R.id.home) {
+            startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
         }
         return true;
     }

@@ -2,6 +2,7 @@ package com.school.schoolapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Student student;
     
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

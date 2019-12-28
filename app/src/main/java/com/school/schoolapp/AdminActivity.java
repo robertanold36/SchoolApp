@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
+
 import android.view.MenuItem;
 
 import android.view.View;
@@ -37,6 +38,9 @@ public class AdminActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_admin);
+
+
+
 
         //get the loginValues stored by the sharedPreference
         sharedPreferences=getSharedPreferences ("user_details",MODE_PRIVATE);

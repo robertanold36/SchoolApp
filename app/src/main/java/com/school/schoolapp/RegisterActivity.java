@@ -3,6 +3,7 @@ package com.school.schoolapp;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.R.style;
 import android.annotation.SuppressLint;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -50,7 +52,15 @@ public class RegisterActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateSetListener; //reference variable for class date
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId ()==android.R.id.home){
+            startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+        }
+        return true;
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +82,11 @@ public class RegisterActivity extends AppCompatActivity {
         mRegister=findViewById(R.id.register);
         db=new DatabaseSource (this); //instatiate reference variable db for database
 
+
+        Toolbar toolbar=findViewById (R.id.toolbar);
+        setSupportActionBar (toolbar);
+        Objects.requireNonNull (getSupportActionBar ( )).setDisplayHomeAsUpEnabled (true);
+        getSupportActionBar ().setTitle ("back");
 
 
 

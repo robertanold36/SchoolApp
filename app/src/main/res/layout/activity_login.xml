@@ -17,6 +17,19 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@android:dimen/app_icon_size">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+                app:title="School App"
+                />
+        </com.google.android.material.appbar.AppBarLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,6 +39,7 @@
         android:paddingBottom="100dp"
         android:text="@string/login_text"
         android:textAlignment="textStart"
+        android:layout_marginTop="16dp"
         android:textColor="#111111"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -36,7 +50,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:background="#FFFFFF"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/student" />
 
         <EditText
             android:id="@+id/username"

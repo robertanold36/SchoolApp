@@ -1,7 +1,9 @@
 package com.school.schoolapp;
 
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -44,6 +47,16 @@ public class LectureActivity extends AppCompatActivity {
     DatabaseSource db;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId ()==android.R.id.home){
+            startActivity (new Intent (getApplicationContext (), AdminActivity.class));
+
+        }
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_lecture);
@@ -61,6 +74,11 @@ public class LectureActivity extends AppCompatActivity {
         mRegister=findViewById (R.id.register);
 
         db=new DatabaseSource (this); //instatiate reference variable db for database
+
+        Toolbar toolbar=findViewById (R.id.toolbar);
+        setSupportActionBar (toolbar);
+        Objects.requireNonNull (getSupportActionBar ( )).setDisplayHomeAsUpEnabled (true);
+        getSupportActionBar ().setTitle ("back");
 
         String[] code={"CS 150","CS 151","CS 152","CS 153",
                 "CS 154","CS 155","CS 156","CS 157","CS 158","CS 159"};

@@ -177,7 +177,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
         SQLiteDatabase db=this.getWritableDatabase ();
         String[] selectionArgs={username};
-        Cursor cursor=db.rawQuery ("select*from "+TABLE_student+" where "+COL_6+"=?",selectionArgs);
+        Cursor cursor=db.rawQuery ("select*from "+TABLE_student+" where "+COL_6+"=?"
+                ,selectionArgs);
         cursor.moveToFirst ();
 
         Student student=new Student();
