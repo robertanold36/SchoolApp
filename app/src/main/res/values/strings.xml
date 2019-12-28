@@ -33,5 +33,6 @@
     <string name="core">Core</string>
     <string name="telecommunication">Telecommunication</string>
     <string name="welcome_admin">WELCOME ADMIN</string>
+    <string name="logout">logout</string>
 
 </resources>

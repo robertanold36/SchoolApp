@@ -173,6 +173,24 @@ public class DatabaseSource extends SQLiteOpenHelper {
     }
 
 
+     public Student getDetails(String username){
 
+        SQLiteDatabase db=this.getWritableDatabase ();
+        String[] selectionArgs={username};
+        Cursor cursor=db.rawQuery ("select*from "+TABLE_student+" where "+COL_6+"=?",selectionArgs);
+        cursor.moveToFirst ();
 
+        Student student=new Student();
+        student.setFirst_name (cursor.getString (cursor.getColumnIndex (COL_2)));
+        student.setMiddle_name (cursor.getString (cursor.getColumnIndex (COL_3)));
+        student.setLast_name (cursor.getString (cursor.getColumnIndex (COL_4)));
+        student.setEmail (cursor.getString (cursor.getColumnIndex (COL_5)));
+        student.setProgramme (cursor.getString (cursor.getColumnIndex (COL_7)));
+        student.setPhone_number (cursor.getString (cursor.getColumnIndex (COL_9)));
+
+        cursor.close ();
+        db.close ();
+        return student;
+
+     }
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import android.os.Build;
 import android.os.Bundle;
+
 import android.view.MenuItem;
 
 import android.view.View;
@@ -49,6 +50,8 @@ public class AdminActivity extends AppCompatActivity  {
 
         DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
 
+
+
         ActionBarDrawerToggle toggle;
         toggle = new ActionBarDrawerToggle (this,drawerLayout, toolbar
                 ,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
@@ -57,12 +60,15 @@ public class AdminActivity extends AppCompatActivity  {
         drawerLayout.addDrawerListener (toggle);
         toggle.syncState ();
 
+
+
         NavigationView navigationView=findViewById (R.id.nav_view);
         navigationView.setNavigationItemSelectedListener
                 (new NavigationView.OnNavigationItemSelectedListener () {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId ( );
+
 
                 switch(id){
                     case(R.id.item1):
@@ -74,16 +80,13 @@ public class AdminActivity extends AppCompatActivity  {
                         break;
 
                     case(R.id.item3):
-
                         startActivity (new Intent (getApplicationContext (),LectureActivity.class));
-
                         break;
 
 
                     case(R.id.item4):
                         Toast.makeText (AdminActivity.this, "click", Toast.LENGTH_SHORT)
                                 .show ();
-
                         break;
 
 

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginTop="@dimen/activity_horizontal_margin"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".LectureActivity">
@@ -16,6 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@android:dimen/app_icon_size">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
+
+                app:layout_scrollFlags="scroll|enterAlways"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
 
         <TextView
             android:layout_width="264dp"

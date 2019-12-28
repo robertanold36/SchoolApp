@@ -6,9 +6,9 @@
     android:background="#F9F9F9"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:layout_marginTop="16dp"
     android:gravity="center"
     tools:context=".CourseActivity">
+
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -17,6 +17,13 @@
         android:layout_marginBottom="@android:dimen/app_icon_size"
         android:gravity="center"
         android:orientation="vertical">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/swiping_layout"/>
+
+
 
         <TextView
             android:id="@+id/title"

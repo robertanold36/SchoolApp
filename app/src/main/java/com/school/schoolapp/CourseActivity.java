@@ -1,11 +1,11 @@
 package com.school.schoolapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -15,16 +15,35 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.school.datasource.DatabaseSource;
+
+import java.util.Objects;
+
 
 public class CourseActivity extends AppCompatActivity {
 
-    EditText course_name,course_code,course_credit,course_semister,course_year;
+    EditText course_name,course_code,course_credit, course_semester,course_year;
     RadioGroup category;
     AutoCompleteTextView autoCompleteTextView;
     Button mRegister;
     DatabaseSource db;
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId ()){
+            case android.R.id.home:
+                startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+                break;
+        }
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -32,10 +51,18 @@ public class CourseActivity extends AppCompatActivity {
 
         db=new DatabaseSource (this);
 
+        Toolbar toolbar=findViewById (R.id.toolbar);
+        setSupportActionBar (toolbar);
+
+        Objects.requireNonNull (getSupportActionBar ( )).setDisplayHomeAsUpEnabled (true);
+        getSupportActionBar().setDisplayShowTitleEnabled (true);
+        getSupportActionBar ().setTitle ("back");
+
+
         course_name=findViewById (R.id.cname);
         course_code=findViewById (R.id.cCode);
         course_credit=findViewById (R.id.cCredit);
-        course_semister=findViewById (R.id.cSemister);
+        course_semester =findViewById (R.id.cSemister);
         course_year=findViewById (R.id.cYear);
         mRegister=findViewById (R.id.register);
         autoCompleteTextView=findViewById (R.id.programme);
@@ -63,7 +90,7 @@ public class CourseActivity extends AppCompatActivity {
                 String name_course=course_name.getText ().toString ().trim ();
                 String code_course=course_code.getText ().toString ().trim ();
                 String credit_course=course_credit.getText ().toString ().trim ();
-                String semister_course=course_semister.getText ().toString ().trim ();
+                String semester_course= course_semester.getText ().toString ().trim ();
                 String year_course=course_year.getText ().toString ().trim ();
                 String program_course=autoCompleteTextView.getText ().toString ().trim ();
 
@@ -79,8 +106,8 @@ public class CourseActivity extends AppCompatActivity {
                     course_credit.setError ("Text field is empty");
 
                 }
-                else if(TextUtils.isEmpty (semister_course)){
-                    course_semister.setError ("Text field is empty");
+                else if(TextUtils.isEmpty (semester_course)){
+                    course_semester.setError ("Text field is empty");
 
                 }
                else if(TextUtils.isEmpty (year_course)){
@@ -104,7 +131,7 @@ public class CourseActivity extends AppCompatActivity {
                    String categories=radioButton.getText ().toString ().trim ();
 
                    long res=db.createCourse (name_course,code_course,credit_course,
-                           semister_course,year_course,program_course,categories);
+                           semester_course,year_course,program_course,categories);
 
                    if(res>0){
 
@@ -127,4 +154,7 @@ public class CourseActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }
