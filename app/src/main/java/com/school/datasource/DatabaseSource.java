@@ -9,7 +9,10 @@ import android.os.CpuUsageInfo;
 
 import androidx.annotation.Nullable;
 
+import com.school.schoolapp.CourseDetails;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DatabaseSource extends SQLiteOpenHelper {
@@ -190,15 +193,32 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
      }
 
-     public Cursor getCourse(String programme){
+     public List<Course> getCourse(String programme){
 
         SQLiteDatabase db=this.getWritableDatabase ();
         String[] selectionArgs={programme};
 
+        List<Course> courses=new ArrayList<> ();
+
         Cursor cursor=db.rawQuery ("select*from "+TABLE_course+" where "+COL_programme+"=?"
                 ,selectionArgs);
 
-        return cursor;
+        if(cursor.moveToFirst ()){
+
+            do {
+
+                Course course=new Course ();
+
+                course.setCourse_name (cursor.getString (1));
+                course.setCourse_code (cursor.getString (2));
+
+                courses.add (course);
+
+            }while (cursor.moveToNext ());
+
+        }
+
+        return courses;
 
      }
 }
