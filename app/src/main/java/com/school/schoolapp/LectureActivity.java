@@ -74,7 +74,7 @@ public class LectureActivity extends AppCompatActivity {
         mGender=findViewById (R.id.gender);
         mRegister=findViewById (R.id.register);
 
-        db=new DatabaseSource (this); //instatiate reference variable db for database
+        db=new DatabaseSource (this); //instantiate reference variable db for database
 
         Toolbar toolbar=findViewById (R.id.toolbar);
         setSupportActionBar (toolbar);

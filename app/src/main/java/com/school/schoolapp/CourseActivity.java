@@ -26,9 +26,9 @@ import java.util.Objects;
 
 public class CourseActivity extends AppCompatActivity {
 
-    EditText course_name,course_code,course_credit, course_semester,course_year;
+    EditText course_name,course_credit, course_semester,course_year;
     RadioGroup category;
-    AutoCompleteTextView autoCompleteTextView;
+    AutoCompleteTextView autoCompleteTextView,course_code;
     Button mRegister;
     DatabaseSource db;
 
@@ -77,6 +77,16 @@ public class CourseActivity extends AppCompatActivity {
         autoCompleteTextView.setThreshold (1);
         autoCompleteTextView.setAdapter (adapter);
 
+        final String[] code={"CS 150","CS 151","CS 152","CS 153",
+                "CS 154","CS 155","CS 156","CS 157","CS 158","CS 159"};
+
+        ArrayAdapter<String> course_adapter=new ArrayAdapter<> (CourseActivity.this,
+                android.R.layout.select_dialog_item,code);
+
+      course_code.setAdapter (course_adapter);
+      course_code.setThreshold (1);
+
+
 
 
         mRegister.setOnClickListener (new View.OnClickListener ( ) {
@@ -93,6 +103,7 @@ public class CourseActivity extends AppCompatActivity {
                 String year_course=course_year.getText ().toString ().trim ();
                 String program_course=autoCompleteTextView.getText ().toString ().trim ();
 
+
                 if(TextUtils.isEmpty (name_course)){
                     course_name.setError ("Text field is empty");
 
@@ -105,6 +116,7 @@ public class CourseActivity extends AppCompatActivity {
                     course_credit.setError ("Text field is empty");
 
                 }
+
                 else if(TextUtils.isEmpty (semester_course)){
                     course_semester.setError ("Text field is empty");
 

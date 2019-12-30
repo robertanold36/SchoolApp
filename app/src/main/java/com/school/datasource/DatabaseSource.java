@@ -5,10 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.CpuUsageInfo;
 
 import androidx.annotation.Nullable;
 
-
+import java.util.ArrayList;
 
 
 public class DatabaseSource extends SQLiteOpenHelper {
@@ -179,19 +180,25 @@ public class DatabaseSource extends SQLiteOpenHelper {
         String[] selectionArgs={username};
         Cursor cursor=db.rawQuery ("select*from "+TABLE_student+" where "+COL_6+"=?"
                 ,selectionArgs);
+
+        Student student=new Student ();
         cursor.moveToFirst ();
-
-        Student student=new Student();
-        student.setFirst_name (cursor.getString (cursor.getColumnIndex (COL_2)));
-        student.setMiddle_name (cursor.getString (cursor.getColumnIndex (COL_3)));
-        student.setLast_name (cursor.getString (cursor.getColumnIndex (COL_4)));
-        student.setEmail (cursor.getString (cursor.getColumnIndex (COL_5)));
-        student.setProgramme (cursor.getString (cursor.getColumnIndex (COL_7)));
-        student.setPhone_number (cursor.getString (cursor.getColumnIndex (COL_9)));
-
-        cursor.close ();
+              student.setProgramme (cursor.getString (6));
+         cursor.close ();
         db.close ();
         return student;
+
+     }
+
+     public Cursor getCourse(String programme){
+
+        SQLiteDatabase db=this.getWritableDatabase ();
+        String[] selectionArgs={programme};
+
+        Cursor cursor=db.rawQuery ("select*from "+TABLE_course+" where "+COL_programme+"=?"
+                ,selectionArgs);
+
+        return cursor;
 
      }
 }

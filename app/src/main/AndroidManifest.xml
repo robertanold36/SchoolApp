@@ -9,25 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ListCourse"></activity>
         <activity android:name=".SplashScreen">
-             <intent-filter>
-                 <category android:name="android.intent.category.LAUNCHER" />
-                 <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
 
-             </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
         <activity android:name=".LectureActivity" />
         <activity android:name=".CourseActivity" />
         <activity android:name=".Swipe" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
             </intent-filter>
         </activity>
     </application>

@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 
+import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import android.view.View;
@@ -31,6 +33,15 @@ import java.util.Objects;
 public class AdminActivity extends AppCompatActivity  {
 
     SharedPreferences sharedPreferences;
+
+   //method which finish the activity when press back
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==event.KEYCODE_BACK){
+            finish ();
+        }
+        return super.onKeyDown (keyCode, event);
+    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -103,8 +114,15 @@ public class AdminActivity extends AppCompatActivity  {
                         break;
                 }
 
-                DrawerLayout drawerLayout1=findViewById (R.id.drawer_layout);
-                drawerLayout1.closeDrawer (GravityCompat.START);
+                final DrawerLayout drawerLayout= findViewById (R.id.drawer_layout);
+
+                Handler handler=new Handler ();
+                handler.postDelayed (new Runnable ( ) {
+                    @Override
+                    public void run() {
+                        drawerLayout.closeDrawer (GravityCompat.START);
+                    }
+                },100);
                 return true;
 
             }
@@ -120,9 +138,8 @@ public class AdminActivity extends AppCompatActivity  {
         editor.clear ();
         editor.apply ();
         startActivity (new Intent (getApplicationContext (),LoginActivity.class));
+        finish ();
 
     }
-
-
 
 }
