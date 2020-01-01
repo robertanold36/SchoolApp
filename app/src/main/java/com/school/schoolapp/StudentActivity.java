@@ -29,7 +29,7 @@ import com.school.datasource.DatabaseSource;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class StudentActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     DatabaseSource db;
     TextView header_title;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_student);
 
         db=new DatabaseSource (this);
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         final String mUsername= sharedPreferences.getString ("username",null);
 
         header_title=findViewById (R.id.textView);
-        header_title.setText ("WELCOME "+mUsername);
+        header_title.setText (mUsername);
 
         header_title=findViewById (R.id.header_info);
 
@@ -88,24 +88,25 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId ()){
                     case R.id.item1:
-                        Toast.makeText (MainActivity.this, "item 1 clicked",
+                        Toast.makeText (StudentActivity.this, "item 1 clicked",
                                 Toast.LENGTH_SHORT).show ();
                         break;
 
                     case R.id.item2:
-                        Intent intent=new Intent (MainActivity.this,ListCourse.class);
+                        Intent intent=new Intent (StudentActivity.this,ListCourse.class);
                         intent.putExtra ("value",mUsername);
                         startActivity (intent);
                         break;
 
                     case R.id.item3:
-                        Toast.makeText (MainActivity.this, "item 3 clicked",
+                        Toast.makeText (StudentActivity.this, "item 3 clicked",
                                 Toast.LENGTH_SHORT).show ();
                         break;
 
                     case R.id.item4:
-                        Toast.makeText (MainActivity.this, "item 4 clicked",
-                                Toast.LENGTH_SHORT).show ();
+                        Intent intent1=new Intent (StudentActivity.this,PasswordChanger.class);
+                        intent1.putExtra ("value",mUsername);
+                        startActivity (intent1);
                         break;
 
                     case R.id.item5:
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         drawerLayout.closeDrawer (GravityCompat.START);
                     }
-                },100);
+                },50);
 
                 return true;
             }

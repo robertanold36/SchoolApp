@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.school.datasource.Course;
@@ -24,7 +21,7 @@ import java.util.Objects;
 public class ListCourse extends AppCompatActivity {
 
 
-    private CourseDetails courseDetails;
+    private CourseAdapter courseAdapter;
     private List<Course> courses=new ArrayList<> ();
 
 
@@ -52,9 +49,9 @@ public class ListCourse extends AppCompatActivity {
         courses.addAll (db.getCourse (programme));
         RecyclerView recyclerView=findViewById (R.id.recycler_view);
         recyclerView.setLayoutManager (new LinearLayoutManager (this));
-        courseDetails=new CourseDetails (this, courses);
+        courseAdapter =new CourseAdapter (this, courses);
 
-        recyclerView.setAdapter (courseDetails);
+        recyclerView.setAdapter (courseAdapter);
 
 
     }

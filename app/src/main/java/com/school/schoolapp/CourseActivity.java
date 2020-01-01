@@ -35,12 +35,14 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId ( ) == android.R.id.home) {
-            startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
+
+        if (item.getItemId () == android.R.id.home) {
+            super.onBackPressed ();
             finish ();
         }
-        return true;
+        return super.onOptionsItemSelected (item);
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override

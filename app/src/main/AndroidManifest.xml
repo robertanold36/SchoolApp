@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListCourse"></activity>
+        <activity android:name=".PasswordChanger"></activity>
+        <activity android:name=".ListCourse" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -22,8 +23,8 @@
         <activity android:name=".Swipe" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".StudentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

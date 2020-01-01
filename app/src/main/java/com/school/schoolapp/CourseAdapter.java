@@ -1,7 +1,6 @@
 package com.school.schoolapp;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.school.datasource.Course;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
-public class CourseDetails extends RecyclerView.Adapter<CourseDetails.CourseHolder> {
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
 
     private Context mContext;
     private List<Course> courses;
 
 
 
-    public CourseDetails(Context context, List<Course> courses) {
+    public CourseAdapter(Context context, List<Course> courses) {
            this.mContext=context;
            this.courses=courses;
     }

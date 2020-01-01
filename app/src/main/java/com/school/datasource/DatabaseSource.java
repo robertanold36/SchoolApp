@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.CpuUsageInfo;
 
 import androidx.annotation.Nullable;
-
-import com.school.schoolapp.CourseDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,10 +212,28 @@ public class DatabaseSource extends SQLiteOpenHelper {
                 courses.add (course);
 
             }while (cursor.moveToNext ());
-
         }
-
         return courses;
+
+     }
+
+
+     public boolean changePassword(String username,String password,String newPassword){
+
+        SQLiteDatabase db=this.getWritableDatabase ();
+        String selection=COL_6+"=?"+" and "+COL_12+"=?";
+        String[] selectionArgs={username,password};
+        ContentValues contentValues=new ContentValues ();
+        contentValues.put (COL_12,newPassword);
+
+      int res= db.update (TABLE_student,contentValues,selection,selectionArgs);
+      if(res>0){
+
+          return true;
+      }
+      else {
+          return false;
+      }
 
      }
 }

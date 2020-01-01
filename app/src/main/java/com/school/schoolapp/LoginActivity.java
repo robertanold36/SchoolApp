@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
 import android.widget.Toast;
 
 import com.school.datasource.DatabaseSource;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     Button login,Admin;
     EditText mUsername,mPassoword;
     DatabaseSource db;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -44,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity (new Intent (getApplicationContext ( ), AdminActivity.class));
                 finish ();
             } else {
-                startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+                startActivity (new Intent (getApplicationContext ( ), StudentActivity.class));
                 finish ();
 
             }
@@ -66,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText (LoginActivity.this, username+"your now succeed to login"
                             , Toast.LENGTH_SHORT).show ( );
 
-                    startActivity (new Intent (getApplicationContext ( ), MainActivity.class));
+                    startActivity (new Intent (getApplicationContext ( ), StudentActivity.class));
                     finish ();
 
                 } else {

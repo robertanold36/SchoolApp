@@ -37,7 +37,7 @@ public class AdminActivity extends AppCompatActivity  {
    //method which finish the activity when press back
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==event.KEYCODE_BACK){
+        if(keyCode== KeyEvent.KEYCODE_BACK){
             finish ();
         }
         return super.onKeyDown (keyCode, event);
@@ -122,7 +122,7 @@ public class AdminActivity extends AppCompatActivity  {
                     public void run() {
                         drawerLayout.closeDrawer (GravityCompat.START);
                     }
-                },100);
+                },50);
                 return true;
 
             }
@@ -130,6 +130,7 @@ public class AdminActivity extends AppCompatActivity  {
 
 
     }
+
 
     //method to clear sharedPreference key value when user logout
 
