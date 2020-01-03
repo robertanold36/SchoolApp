@@ -1,9 +1,11 @@
 package com.school.schoolapp;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 
 import android.R.style;
 import android.annotation.SuppressLint;
@@ -16,8 +18,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -34,7 +38,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterFragment extends Fragment {
 
     //declare edited text Data type variable
     EditText first_nme,middle_nme,last_nme,mEmail,mUsername,mYear,mPhone,mDate;
@@ -42,60 +46,51 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-    private static  final String TAG="RegisterActivity";
+    private static  final String TAG="RegisterFragment";
 
     Button mRegister;      //declare button data type for register button
-    DatabaseSource db;      // object db to access class Datasource
+    DatabaseSource db;      // object db to access class Data_source
 
     AutoCompleteTextView programme;
 
     private DatePickerDialog.OnDateSetListener dateSetListener; //reference variable for class date
 
-
+    @Nullable
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId ()==android.R.id.home){
-            super.onBackPressed ();
-            finish ();
-        }
-        return true;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate (R.layout.activity_register,container,false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void onActivityCreated(@Nullable  Bundle savedInstanceState) {
+         super.onActivityCreated (savedInstanceState);
 
 
-        first_nme=findViewById(R.id.fname);
-        middle_nme=findViewById (R.id.mname);
-        last_nme=findViewById (R.id.lname);
-        mEmail=findViewById(R.id.email);
-        mUsername=findViewById(R.id.username);
-        programme=findViewById (R.id.programme);
-        mYear=findViewById (R.id.year);
-        mPhone=findViewById (R.id.phone);
-        mGender=findViewById (R.id.gender);
-        mDate=findViewById (R.id.date);
+        first_nme=getActivity ().findViewById(R.id.fname);
+        middle_nme=getActivity ().findViewById (R.id.mname);
+        last_nme=getActivity ().findViewById (R.id.lname);
+        mEmail=getActivity ().findViewById(R.id.email);
+        mUsername=getActivity ().findViewById(R.id.username);
+        programme=getActivity ().findViewById (R.id.programme);
+        mYear=getActivity ().findViewById (R.id.year);
+        mPhone=getActivity ().findViewById (R.id.phone);
+        mGender=getActivity ().findViewById (R.id.gender);
+        mDate=getActivity ().findViewById (R.id.date);
 
         
-        mRegister=findViewById(R.id.register);
-        db=new DatabaseSource (this); //instatiate reference variable db for database
+        mRegister=getActivity ().findViewById(R.id.register);
+        db=new DatabaseSource (getContext ().getApplicationContext ()); //instantiate reference variable db for database
 
-
-        Toolbar toolbar=findViewById (R.id.toolbar);
-        setSupportActionBar (toolbar);
-        Objects.requireNonNull (getSupportActionBar ( )).setDisplayHomeAsUpEnabled (true);
-        getSupportActionBar ().setTitle ("back");
 
 
 
         final String[] programs={"Bsc in computer science","Electronics","Engineering",
-                "Telecommunication","law"}; //selected option view array for autocompleteview
+                "Telecommunication","law"}; //selected option view array for autocomplete
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<> (this,
-                android.R.layout.select_dialog_item,programs);//adapter to create Autocompleteview
+        ArrayAdapter<String> adapter=new ArrayAdapter<> (getActivity ().getApplicationContext (),
+                android.R.layout.select_dialog_item,programs);//adapter to create Autocomplete
 
         programme.setThreshold (1);//start display when input is 1
         programme.setAdapter (adapter); 
@@ -112,11 +107,11 @@ public class RegisterActivity extends AppCompatActivity {
                 int day= calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog;
-                datePickerDialog = new DatePickerDialog(RegisterActivity.this,
+                datePickerDialog = new DatePickerDialog(getActivity (),
                         style.Theme_Holo_Light_Dialog_MinWidth
                        ,dateSetListener,day,month,year);
 
-                Objects.requireNonNull (datePickerDialog.getWindow ( )).setBackgroundDrawable
+                datePickerDialog.getWindow ( ).setBackgroundDrawable
                         (new ColorDrawable (Color.TRANSPARENT));
 
                 datePickerDialog.show ();
@@ -145,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 int selectedId=mGender.getCheckedRadioButtonId ();
-                RadioButton radioButton=findViewById (selectedId);
+                RadioButton radioButton=getActivity ().findViewById (selectedId);
 
                 String first_name=first_nme.getText ().toString ().trim ();
                 String middle_name=middle_nme.getText ().toString ().trim ();
@@ -199,7 +194,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                  else if(mGender.getCheckedRadioButtonId ()<=0){
-                    RadioButton male_btn=findViewById (R.id.male);
+                    RadioButton male_btn=getActivity ().findViewById (R.id.male);
                     male_btn.setError ("field is required");
 
                 }
@@ -218,16 +213,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                         if (res > 0) {
 
-                            Toast.makeText (RegisterActivity.this,
+                            Toast.makeText (getActivity ().getApplicationContext (),
                                     "succeed register a student",
                                     Toast.LENGTH_SHORT).show ( );
                             Intent intent=new Intent
-                                    (RegisterActivity.this,AdminActivity.class);
+                                    (getActivity ().getApplicationContext (),AdminActivity.class);
                             startActivity (intent);
                         } else {
 
-                            Toast.makeText (RegisterActivity.this,
-                                    " register doesn't exist email or username arleady exist "
+                            Toast.makeText (getActivity ().getApplicationContext (),
+                                    " register doesn't exist email or username already exist "
                                     , Toast.LENGTH_SHORT).show ();
 
                         }

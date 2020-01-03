@@ -32,16 +32,7 @@ import java.util.Objects;
 
 public class AdminActivity extends AppCompatActivity  {
 
-    SharedPreferences sharedPreferences;
-
-   //method which finish the activity when press back
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode== KeyEvent.KEYCODE_BACK){
-            finish ();
-        }
-        return super.onKeyDown (keyCode, event);
-    }
+    DrawerLayout drawerLayout;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -61,7 +52,7 @@ public class AdminActivity extends AppCompatActivity  {
 
         getSupportActionBar().setDisplayShowTitleEnabled (true);
 
-        DrawerLayout drawerLayout=findViewById(R.id.drawer_layout);
+         drawerLayout=findViewById(R.id.drawer_layout);
 
 
 
@@ -74,7 +65,6 @@ public class AdminActivity extends AppCompatActivity  {
         toggle.syncState ();
 
 
-
         NavigationView navigationView=findViewById (R.id.nav_view);
         navigationView.setNavigationItemSelectedListener
                 (new NavigationView.OnNavigationItemSelectedListener () {
@@ -85,15 +75,15 @@ public class AdminActivity extends AppCompatActivity  {
 
                 switch(id){
                     case(R.id.item1):
-                     startActivity (new Intent (getApplicationContext (),RegisterActivity.class));
+                        getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new RegisterFragment ()).commit ();
                      break;
 
                     case(R.id.item2):
-                     startActivity (new Intent (getApplicationContext (),CourseActivity.class));
+                        getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new CourseFragment ()).commit ();
                         break;
 
                     case(R.id.item3):
-                        startActivity (new Intent (getApplicationContext (),LectureActivity.class));
+                        getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new LectureFragment ()).commit ();
                         break;
 
 
@@ -116,13 +106,15 @@ public class AdminActivity extends AppCompatActivity  {
 
                 final DrawerLayout drawerLayout= findViewById (R.id.drawer_layout);
 
-                Handler handler=new Handler ();
-                handler.postDelayed (new Runnable ( ) {
+
+                new Handler ().postDelayed (new Runnable ( ) {
                     @Override
                     public void run() {
                         drawerLayout.closeDrawer (GravityCompat.START);
+
                     }
                 },50);
+
                 return true;
 
             }
@@ -142,5 +134,26 @@ public class AdminActivity extends AppCompatActivity  {
         finish ();
 
     }
+
+    @Override
+    public void onBackPressed() {
+
+        if(drawerLayout.isDrawerOpen (GravityCompat.START)){
+            drawerLayout.closeDrawer (GravityCompat.START);
+        }
+        super.onBackPressed ();
+    }
+
+    SharedPreferences sharedPreferences;
+
+    //method which finish the activity when press back
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode== KeyEvent.KEYCODE_BACK){
+            finish ();
+        }
+        return super.onKeyDown (keyCode, event);
+    }
+
 
 }

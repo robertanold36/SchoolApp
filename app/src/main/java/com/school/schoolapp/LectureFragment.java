@@ -1,9 +1,10 @@
 package com.school.schoolapp;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -15,8 +16,9 @@ import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -32,7 +34,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 
-public class LectureActivity extends AppCompatActivity {
+public class LectureFragment extends Fragment {
 
     EditText first_nme, middle_nme,last_nme,mEmail,mUsername,mPhone,mDate;
     AutoCompleteTextView mCourse_code;
@@ -42,51 +44,41 @@ public class LectureActivity extends AppCompatActivity {
     Button mRegister;
     DatePickerDialog.OnDateSetListener dateSetListener;
 
-    private static final String TAG="LectureActivity";
+    private static final String TAG="LectureFragment";
 
     DatabaseSource db;
 
+    @Nullable
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId ()==android.R.id.home){
-            super.onBackPressed ();
-            finish ();
-
-        }
-        return true;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate (R.layout.activity_lecture,container,false);
     }
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_lecture);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated (savedInstanceState);
 
-        first_nme =findViewById (R.id.fname);
-        middle_nme =findViewById (R.id.mname);
-        last_nme =findViewById (R.id.lname);
-        mEmail=findViewById (R.id.email);
-        mUsername=findViewById (R.id.username);
-        mCourse_code=findViewById (R.id.course_code);
-        mPhone=findViewById (R.id.phone);
-        mDate=findViewById (R.id.date);
 
-        mGender=findViewById (R.id.gender);
-        mRegister=findViewById (R.id.register);
+        first_nme =getActivity ().findViewById (R.id.fname);
+        middle_nme =getActivity ().findViewById (R.id.mname);
+        last_nme =getActivity ().findViewById (R.id.lname);
+        mEmail=getActivity ().findViewById (R.id.email);
+        mUsername=getActivity ().findViewById (R.id.username);
+        mCourse_code=getActivity ().findViewById (R.id.course_code);
+        mPhone=getActivity ().findViewById (R.id.phone);
+        mDate=getActivity ().findViewById (R.id.date);
 
-        db=new DatabaseSource (this); //instantiate reference variable db for database
+        mGender=getActivity ().findViewById (R.id.gender);
+        mRegister=getActivity ().findViewById (R.id.register);
 
-        Toolbar toolbar=findViewById (R.id.toolbar);
-        setSupportActionBar (toolbar);
-        Objects.requireNonNull (getSupportActionBar ( )).setDisplayHomeAsUpEnabled (true);
-        getSupportActionBar ().setTitle ("back");
+        db=new DatabaseSource (getContext ().getApplicationContext ()); //instantiate reference variable db for database
+
 
         String[] code={"CS 150","CS 151","CS 152","CS 153",
                 "CS 154","CS 155","CS 156","CS 157","CS 158","CS 159"};
 
-        ArrayAdapter<String> adapter=new ArrayAdapter<> (LectureActivity.this,
+        ArrayAdapter<String> adapter=new ArrayAdapter<> (getActivity ().getApplicationContext (),
                 android.R.layout.select_dialog_item,code);
 
          mCourse_code.setThreshold (1);
@@ -105,10 +97,10 @@ public class LectureActivity extends AppCompatActivity {
                 int day=calendar.get (Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog=new DatePickerDialog
-                        (LectureActivity.this,
+                        (getActivity (),
                    android.R.style.Theme_Holo_Dialog_MinWidth,dateSetListener,year,month,day);
 
-                Objects.requireNonNull (datePickerDialog.getWindow ( )).setBackgroundDrawable
+                datePickerDialog.getWindow ( ).setBackgroundDrawable
                         (new ColorDrawable (Color.TRANSPARENT));
 
                 datePickerDialog.show ();
@@ -134,7 +126,7 @@ public class LectureActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 int selectedId=mGender.getCheckedRadioButtonId ();
-                RadioButton radioButton=findViewById (selectedId);
+                RadioButton radioButton=getActivity ().findViewById (selectedId);
 
                 String first_name=first_nme.getText ().toString ().trim ();
                 String middle_name=middle_nme.getText ().toString ().trim ();
@@ -181,7 +173,7 @@ public class LectureActivity extends AppCompatActivity {
 
 
                 else if(mGender.getCheckedRadioButtonId ()<=0){
-                    RadioButton male_btn=findViewById (R.id.male);
+                    RadioButton male_btn=getActivity ().findViewById (R.id.male);
                     male_btn.setError ("field is required");
 
                 }
@@ -200,15 +192,15 @@ public class LectureActivity extends AppCompatActivity {
                             email,username,course_code,phone,gender,date);
 
                     if(res>0){
-                        Toast.makeText (LectureActivity.this, "new staff lecture has " +
+                        Toast.makeText (getActivity ().getApplicationContext (), "new staff lecture has " +
                                 "been registered", Toast.LENGTH_SHORT).show ( );
 
-                        startActivity (new Intent (getApplicationContext (),AdminActivity.class));
+                        startActivity (new Intent (getActivity ().getApplicationContext (),AdminActivity.class));
                     }
 
                     else {
 
-                        Toast.makeText (LectureActivity.this, "fail to register new lecture",
+                        Toast.makeText (getActivity ().getApplicationContext (), "fail to register new lecture",
                                 Toast.LENGTH_SHORT).show ( );
                     }
                 }

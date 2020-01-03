@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
+    android:background="#F9F9F9"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterFragment">
 
     <LinearLayout
         android:gravity="center"
@@ -15,19 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@android:dimen/app_icon_size">
-        
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark">
-            
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:id="@+id/toolbar"
-                app:layout_scrollFlags="scroll|enterAlways"/>
-            
-        </com.google.android.material.appbar.AppBarLayout>
 
 
         <TextView

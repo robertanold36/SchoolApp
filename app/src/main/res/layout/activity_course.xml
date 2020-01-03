@@ -7,21 +7,16 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center"
-    tools:context=".CourseActivity">
+    tools:context=".CourseFragment">
 
 
     <LinearLayout
-        android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@android:dimen/app_icon_size"
         android:gravity="center"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/swiping_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
 
         <TextView

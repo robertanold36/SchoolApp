@@ -18,11 +18,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".LectureActivity" />
+        <activity android:name=".LectureFragment" />
         <activity android:name=".CourseActivity" />
         <activity android:name=".Swipe" />
         <activity android:name=".AdminActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterFragment" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".StudentActivity">
             <intent-filter>
