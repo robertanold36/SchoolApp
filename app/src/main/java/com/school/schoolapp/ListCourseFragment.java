@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.Toast;
+
 
 import com.school.datasource.Course;
 import com.school.datasource.DatabaseSource;
@@ -42,8 +42,6 @@ public class ListCourse extends AppCompatActivity {
 
         Student student=db.getDetails (username);
         String programme= student.getProgramme ();
-
-        Toast.makeText (this, "your are " + programme, Toast.LENGTH_SHORT).show ( );
 
 
         courses.addAll (db.getCourse (programme));
