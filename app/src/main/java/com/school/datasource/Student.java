@@ -5,6 +5,7 @@ public class Student {
     private String middle_name;
     private String last_name;
     private String email;
+    private String username;
     private String programme;
     private String phone_number;
     private String year;
@@ -17,6 +18,7 @@ public class Student {
         this.middle_name = middle_name;
         this.last_name = last_name;
         this.email = email;
+        this.username = username;
         this.programme = programme;
         this.phone_number = phone_number;
         this.year = year;
@@ -55,22 +57,27 @@ public class Student {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getProgramme() {
         return programme;
     }
 
-    public void setProgramme(String programme)
-    {
+    public void setProgramme(String programme) {
         this.programme = programme;
     }
 
-    public String getPhone_number()
-    {
+    public String getPhone_number() {
         return phone_number;
     }
 
-    public void setPhone_number(String phone_number)
-    {
+    public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
     }
 

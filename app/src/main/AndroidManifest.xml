@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PasswordChanger"></activity>
-        <activity android:name=".ListCourse" />
+        <activity android:name=".LectureActivity"></activity>
+        <activity android:name=".PasswordChanger" />
+        <activity android:name=".ListCourseFragment" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,8 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".LectureFragment" />
-        <activity android:name=".CourseActivity" />
-        <activity android:name=".Swipe" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RegisterFragment" />
         <activity android:name=".LoginActivity" />

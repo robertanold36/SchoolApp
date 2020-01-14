@@ -12,7 +12,6 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import android.view.View;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -66,6 +65,16 @@ public class AdminActivity extends AppCompatActivity  {
 
 
         NavigationView navigationView=findViewById (R.id.nav_view);
+
+        if(savedInstanceState==null){
+
+            getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new
+                    HomeAdminFragment ()).commit ();
+            navigationView.setCheckedItem (R.id.home);
+
+        }
+
+
         navigationView.setNavigationItemSelectedListener
                 (new NavigationView.OnNavigationItemSelectedListener () {
             @Override
@@ -74,28 +83,37 @@ public class AdminActivity extends AppCompatActivity  {
 
 
                 switch(id){
+                    case(R.id.home):
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new HomeAdminFragment ()).commit ();
+                        break;
+
+
                     case(R.id.item1):
-                        getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new RegisterFragment ()).commit ();
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new RegisterFragment ()).commit ();
                      break;
 
                     case(R.id.item2):
-                        getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new CourseFragment ()).commit ();
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new CourseFragment ()).commit ();
                         break;
 
                     case(R.id.item3):
-                        getSupportFragmentManager ().beginTransaction ().replace (R.id.fragment_container,new LectureFragment ()).commit ();
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new LectureFragment ()).commit ();
                         break;
 
 
                     case(R.id.item4):
-                        Toast.makeText (AdminActivity.this, "click", Toast.LENGTH_SHORT)
-                                .show ();
+                     getSupportFragmentManager ().beginTransaction ().replace
+                             (R.id.fragment_container,new AllStudentsFragment ()).commit ();
                         break;
 
 
                     case(R.id.item5):
-                        Toast.makeText (AdminActivity.this, "clicked", Toast.LENGTH_SHORT)
-                                .show ();
+                       getSupportFragmentManager ().beginTransaction ().replace
+                               (R.id.fragment_container,new AllCoursesFragment ()).commit ();
 
                         break;
 
@@ -140,6 +158,7 @@ public class AdminActivity extends AppCompatActivity  {
 
         if(drawerLayout.isDrawerOpen (GravityCompat.START)){
             drawerLayout.closeDrawer (GravityCompat.START);
+
         }
         super.onBackPressed ();
     }

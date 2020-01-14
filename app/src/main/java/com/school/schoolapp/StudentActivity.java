@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.school.datasource.DatabaseSource;
@@ -60,6 +59,8 @@ public class StudentActivity extends AppCompatActivity {
 
         final String mUsername= sharedPreferences.getString ("username",null);
 
+
+
         header_title=findViewById (R.id.textView);
         header_title.setText (mUsername);
 
@@ -81,6 +82,14 @@ public class StudentActivity extends AppCompatActivity {
 
         final NavigationView navigationView=findViewById (R.id.nav_view);
 
+        if(savedInstanceState==null){
+
+            getSupportFragmentManager ().beginTransaction ().replace
+                    (R.id.fragment_container,new HomeStudentFragment ()).commit ();
+
+            navigationView.setCheckedItem (R.id.item1);
+        }
+
         navigationView.setNavigationItemSelectedListener (new
                           NavigationView.OnNavigationItemSelectedListener ( ) {
             @Override
@@ -88,25 +97,24 @@ public class StudentActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId ()){
                     case R.id.item1:
-                        Toast.makeText (StudentActivity.this, "item 1 clicked",
-                                Toast.LENGTH_SHORT).show ();
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new HomeStudentFragment ()).commit ();
                         break;
 
                     case R.id.item2:
-                        Intent intent=new Intent (StudentActivity.this,ListCourse.class);
-                        intent.putExtra ("value",mUsername);
-                        startActivity (intent);
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new ListCourseFragment ()).commit ();
+
                         break;
 
                     case R.id.item3:
-                        Toast.makeText (StudentActivity.this, "item 3 clicked",
-                                Toast.LENGTH_SHORT).show ();
+                          getSupportFragmentManager ().beginTransaction ().replace
+                               (R.id.fragment_container,new PersonalDetailsFragment ()).commit ();
                         break;
 
                     case R.id.item4:
-                        Intent intent1=new Intent (StudentActivity.this,PasswordChanger.class);
-                        intent1.putExtra ("value",mUsername);
-                        startActivity (intent1);
+                        getSupportFragmentManager ().beginTransaction ().replace
+                                (R.id.fragment_container,new PasswordChanger ()).commit ();
                         break;
 
                     case R.id.item5:

@@ -31,7 +31,8 @@ public class CourseFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate (R.layout.activity_course, container, false);
 
 
@@ -130,15 +131,20 @@ public class CourseFragment extends Fragment {
 
                     if(res>0){
 
-                        Toast.makeText (getActivity ().getApplicationContext (), "new course is successfully registered"
+                        Toast.makeText (getActivity ().getApplicationContext (),
+                                "new course is successfully registered"
                                 , Toast.LENGTH_SHORT).show ();
-                        Intent intent=new Intent (getActivity ().getApplicationContext (),AdminActivity.class);
+                        Intent intent=new Intent (getActivity ().getApplicationContext (),
+                                AdminActivity.class);
+                        getActivity ().finish ();
                         startActivity (intent);
+
                     }
 
                     else{
 
-                        Toast.makeText (getActivity ().getApplicationContext (), "error in inserting new course",
+                        Toast.makeText (getActivity ().getApplicationContext (),
+                                "error in inserting new course",
                                 Toast.LENGTH_SHORT).show ();
                     }
                 }

@@ -81,16 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:background="@drawable/round"
-            android:text="Login as student" />
+            android:text="Login" />
 
-        <Button
-            android:id="@+id/admin"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/round"
-
-            android:text="login as Admin" />
 
 
     </LinearLayout>

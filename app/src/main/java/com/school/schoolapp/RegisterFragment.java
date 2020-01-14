@@ -36,13 +36,14 @@ import com.school.datasource.DatabaseSource;
 
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class RegisterFragment extends Fragment {
 
     //declare edited text Data type variable
-    EditText first_nme,middle_nme,last_nme,mEmail,mUsername,mYear,mPhone,mDate;
-    RadioGroup mGender;
+   private EditText first_nme,middle_nme,last_nme,mEmail,mYear,mPhone,mDate;
+   private RadioGroup mGender;
 
 
 
@@ -57,7 +58,8 @@ public class RegisterFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate (R.layout.activity_register,container,false);
     }
 
@@ -72,7 +74,6 @@ public class RegisterFragment extends Fragment {
         middle_nme=getActivity ().findViewById (R.id.mname);
         last_nme=getActivity ().findViewById (R.id.lname);
         mEmail=getActivity ().findViewById(R.id.email);
-        mUsername=getActivity ().findViewById(R.id.username);
         programme=getActivity ().findViewById (R.id.programme);
         mYear=getActivity ().findViewById (R.id.year);
         mPhone=getActivity ().findViewById (R.id.phone);
@@ -81,7 +82,7 @@ public class RegisterFragment extends Fragment {
 
         
         mRegister=getActivity ().findViewById(R.id.register);
-        db=new DatabaseSource (getContext ().getApplicationContext ()); //instantiate reference variable db for database
+        db=new DatabaseSource (getContext ().getApplicationContext ());
 
 
 
@@ -146,7 +147,7 @@ public class RegisterFragment extends Fragment {
                 String middle_name=middle_nme.getText ().toString ().trim ();
                 String last_name=last_nme.getText ().toString ().trim ();
                 String email=mEmail.getText ().toString ().trim ();
-                String username=mUsername.getText ().toString ().trim ();
+                String username1="2000-01-";
                 String program=programme.getText ().toString ().trim ();
                 String year=mYear.getText ().toString ().trim ();
                 String phone=mPhone.getText ().toString ().trim ();
@@ -172,10 +173,7 @@ public class RegisterFragment extends Fragment {
 
                     }
 
-                    else if(TextUtils.isEmpty (username)){
-                        mUsername.setError ("field is required");
 
-                    }
                     else if(TextUtils.isEmpty (program)){
                         programme.setError ("field is required");
 
@@ -205,6 +203,10 @@ public class RegisterFragment extends Fragment {
                     }
 
                     else {
+
+                        Random random=new Random ();
+                        random.nextInt (10000);
+                        String username=username1+String.format ("%04d",random.nextInt (10000));
                         String gender=radioButton.getText ().toString ().trim ();
 
 
@@ -213,12 +215,17 @@ public class RegisterFragment extends Fragment {
 
                         if (res > 0) {
 
-                            Toast.makeText (getActivity ().getApplicationContext (),
-                                    "succeed register a student",
-                                    Toast.LENGTH_SHORT).show ( );
-                            Intent intent=new Intent
-                                    (getActivity ().getApplicationContext (),AdminActivity.class);
-                            startActivity (intent);
+                            db.createUser (username,last_name,"student");
+
+                            Toast.makeText (getActivity ( ).getApplicationContext (),
+                                       "succeed register a student",
+                                       Toast.LENGTH_SHORT).show ( );
+                               Intent intent = new Intent
+                                       (getActivity ( ).getApplicationContext ( ), AdminActivity.class);
+                               startActivity (intent);
+                               getActivity ( ).finish ( );
+
+
                         } else {
 
                             Toast.makeText (getActivity ().getApplicationContext (),

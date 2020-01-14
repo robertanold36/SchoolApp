@@ -51,17 +51,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
     @Override
     public void onBindViewHolder(@NonNull CourseHolder holder, int position) {
 
-
                    Course course=courses.get(position);
 
                    holder.name.setText (course.getCourse_name ());
                    holder.code.setText (course.getCourse_code ());
 
-
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return courses.size ();
     }
 

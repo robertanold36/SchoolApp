@@ -28,21 +28,24 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.school.datasource.Course;
 import com.school.datasource.DatabaseSource;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class LectureFragment extends Fragment {
 
-    EditText first_nme, middle_nme,last_nme,mEmail,mUsername,mPhone,mDate;
-    AutoCompleteTextView mCourse_code;
+   private EditText first_nme, middle_nme,last_nme,mEmail,mPhone,mDate;
+   private   AutoCompleteTextView mCourse_code;
 
-    RadioGroup mGender;
+   private RadioGroup mGender;
 
-    Button mRegister;
-    DatePickerDialog.OnDateSetListener dateSetListener;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     private static final String TAG="LectureFragment";
 
@@ -50,7 +53,8 @@ public class LectureFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate (R.layout.activity_lecture,container,false);
     }
 
@@ -64,15 +68,15 @@ public class LectureFragment extends Fragment {
         middle_nme =getActivity ().findViewById (R.id.mname);
         last_nme =getActivity ().findViewById (R.id.lname);
         mEmail=getActivity ().findViewById (R.id.email);
-        mUsername=getActivity ().findViewById (R.id.username);
         mCourse_code=getActivity ().findViewById (R.id.course_code);
         mPhone=getActivity ().findViewById (R.id.phone);
         mDate=getActivity ().findViewById (R.id.date);
 
         mGender=getActivity ().findViewById (R.id.gender);
-        mRegister=getActivity ().findViewById (R.id.register);
+        Button mRegister = getActivity ().findViewById (R.id.register);
 
-        db=new DatabaseSource (getContext ().getApplicationContext ()); //instantiate reference variable db for database
+
+        db=new DatabaseSource (getContext ().getApplicationContext ());
 
 
         String[] code={"CS 150","CS 151","CS 152","CS 153",
@@ -132,7 +136,7 @@ public class LectureFragment extends Fragment {
                 String middle_name=middle_nme.getText ().toString ().trim ();
                 String last_name=last_nme.getText ().toString ().trim ();
                 String email=mEmail.getText ().toString ().trim ();
-                String username=mUsername.getText ().toString ().trim ();
+                String username1="2000-2-";
                 String course_code=mCourse_code.getText ().toString ().trim ();
                 String phone=mPhone.getText ().toString ().trim ();
                 String date=mDate.getText ().toString ().trim ();
@@ -156,10 +160,7 @@ public class LectureFragment extends Fragment {
 
                 }
 
-                else if(TextUtils.isEmpty (username)){
-                    mUsername.setError ("field is required");
 
-                }
                 else if(TextUtils.isEmpty (course_code)){
                     mCourse_code.setError ("field is required");
 
@@ -186,21 +187,34 @@ public class LectureFragment extends Fragment {
                 else{
 
 
+                    Random random=new Random ();
+                    random.nextInt (10000);
+                    String username=username1+String.format ("%04d",random.nextInt (10000));
+
                     String gender=radioButton.getText ().toString ().trim ();
+
 
                     long res=db.createLecture (first_name,middle_name,last_name,
                             email,username,course_code,phone,gender,date);
 
                     if(res>0){
-                        Toast.makeText (getActivity ().getApplicationContext (), "new staff lecture has " +
+
+                        db.createUser (username,last_name,"staff");
+
+
+                        Toast.makeText (getActivity ().getApplicationContext (),
+                                "new staff lecture has " +
                                 "been registered", Toast.LENGTH_SHORT).show ( );
 
-                        startActivity (new Intent (getActivity ().getApplicationContext (),AdminActivity.class));
+                        startActivity (new Intent (getActivity ().getApplicationContext ()
+                                ,AdminActivity.class));
+                        getActivity ().finish ();
                     }
 
                     else {
 
-                        Toast.makeText (getActivity ().getApplicationContext (), "fail to register new lecture",
+                        Toast.makeText (getActivity ().getApplicationContext (),
+                                "fail to register new lecture",
                                 Toast.LENGTH_SHORT).show ( );
                     }
                 }

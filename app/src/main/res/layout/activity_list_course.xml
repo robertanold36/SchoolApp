@@ -2,42 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/halfwhite"
+    android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".ListCourse">
+    tools:context=".ListCourseFragment">
 
      <RelativeLayout
          android:layout_width="match_parent"
-         android:clickable="true"
          android:layout_height="wrap_content"
          android:layout_margin="10dp"
+         android:clickable="true"
          android:padding="20dp">
 
 
           <TextView
+              android:id="@+id/course_nme"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:id="@+id/course_nme"
               android:layout_marginRight="16dp"
-              android:textSize="20sp"
               android:text="Course name"
-              />
+              android:textColor="#000000"
+              android:textSize="20sp" />
 
           <TextView
+              android:id="@+id/course_cde"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:id="@+id/course_cde"
-              android:textSize="20sp"
-              android:text="Course code"
               android:layout_marginLeft="150dp"
-              />
+              android:text="Course code"
+              android:textColor="#000000"
+              android:textSize="20sp" />
      </RelativeLayout>
 
      <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/recycler_view"
          android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:id="@+id/recycler_view"/>
+         android:layout_height="match_parent" />
 
 </LinearLayout>

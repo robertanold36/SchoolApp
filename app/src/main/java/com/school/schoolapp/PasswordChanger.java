@@ -1,39 +1,51 @@
 package com.school.schoolapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.school.datasource.DatabaseSource;
 
-public class PasswordChanger extends AppCompatActivity {
+public class PasswordChanger extends Fragment {
 
-    EditText old_password,new_password,confirm_password;
-    Button save;
-    DatabaseSource db;
-    String username;
+
+   private EditText old_password,new_password,confirm_password;
+    private DatabaseSource db;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate (R.layout.activity_password_changer,container,false);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
-        setContentView (R.layout.activity_password_changer);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated (savedInstanceState);
 
-        username=getIntent ().getExtras ().getString ("value");
-        db=new DatabaseSource (this);
+        TextView mUsername = getActivity ( ).findViewById (R.id.textView);
+        final String username= mUsername.getText ().toString ().trim ();
 
-        old_password=findViewById (R.id.first);
-        new_password=findViewById (R.id.new_password);
-        confirm_password=findViewById (R.id.confirm_password);
+        db=new DatabaseSource (getActivity ());
 
-        Toast.makeText (this, "welcome"+username, Toast.LENGTH_SHORT).show ( );
+        old_password=getActivity ().findViewById (R.id.first);
+        new_password=getActivity ().findViewById (R.id.new_password);
+        confirm_password=getActivity ().findViewById (R.id.confirm_password);
 
-        save=findViewById (R.id.submit);
+        Toast.makeText (getActivity (), "welcome"+username, Toast.LENGTH_SHORT).show ( );
+
+        Button save = getActivity ( ).findViewById (R.id.submit);
 
         save.setOnClickListener (new View.OnClickListener ( ) {
             @Override
@@ -57,17 +69,20 @@ public class PasswordChanger extends AppCompatActivity {
                else{
                    boolean res=db.changePassword (username,older_password,newer_password);
 
-                   if(res==true){
-                       startActivity (new Intent (getApplicationContext (),StudentActivity.class));
-                       Toast.makeText (PasswordChanger.this, "password changed successfully",
+                   if(res){
+                       startActivity (new Intent (getActivity ().getApplicationContext (),
+                               StudentActivity.class));
+
+                       Toast.makeText (getActivity (), "password changed successfully",
                                Toast.LENGTH_SHORT).show ();
-                       finish ();
+
+                       getActivity ().finish ();
 
                    }
 
                    else{
 
-                       Toast.makeText (PasswordChanger.this, "password not exist",
+                       Toast.makeText (getActivity (), "password not exist",
                                Toast.LENGTH_SHORT).show ( );
                    }
 

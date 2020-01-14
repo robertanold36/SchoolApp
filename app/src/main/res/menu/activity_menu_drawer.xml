@@ -3,6 +3,12 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/home"
+            android:icon="@drawable/user"
+            android:title="home"
+            />
+
+        <item
             android:id="@+id/item1"
             android:icon="@drawable/user"
             android:title="register student"
@@ -36,11 +42,6 @@
         android:title="view all courses"
         />
 
-       <item
-        android:id="@+id/item6"
-        android:icon="@drawable/list"
-        android:title="view all staffs"
-        />
 
             </menu>
 

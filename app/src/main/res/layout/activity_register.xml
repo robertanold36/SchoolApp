@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:gravity="center"
     android:background="#F9F9F9"
-    android:orientation="vertical"
     tools:context=".RegisterFragment">
 
     <LinearLayout
@@ -26,8 +24,7 @@
             android:layout_marginBottom="16dp"
             android:text="REGISTER NEW STUDENT"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:textStyle="italic"/>
+            android:textSize="20sp"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -77,16 +74,6 @@
         android:ems="10"
         android:hint="email"
         android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="264dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:ems="10"
-        android:hint="username"
-        android:inputType="textPersonName" />
 
         <AutoCompleteTextView
             android:id="@+id/programme"
