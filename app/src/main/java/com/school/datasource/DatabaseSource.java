@@ -15,11 +15,13 @@ import java.util.List;
 public class DatabaseSource extends SQLiteOpenHelper {
 
 
-    private static final String DATABASE_NAME="School.db";
+    public static final String DATABASE_NAME="School.db";
     private static final String TABLE_student="studentTable";
     private static final String TABLE_course="courseTable";
     private static final String TABLE_lecture="lectureTable";
     private static final String TABLE_user="table_user";
+    private static final String TABLE_location ="location";
+
 
     private static final String COL_1="ID";
     private static final String COL_2="first_name";
@@ -47,6 +49,12 @@ public class DatabaseSource extends SQLiteOpenHelper {
     private static final String COL_category="course_category";
     private static final String COL_programme="course_programme";
 
+
+    private static final String COL_region ="Region";
+    private static final String COL_district ="District";
+    private static final String COL_ward ="Ward";
+
+
     public DatabaseSource(@Nullable Context context) {
         super(context, DATABASE_NAME, null,
                 1);
@@ -60,7 +68,9 @@ public class DatabaseSource extends SQLiteOpenHelper {
         db.execSQL ("create table "+TABLE_student+"("+COL_1+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 +COL_2+" TEXT,"+COL_3+" TEXT, "+COL_4+" TEXT, "+COL_5+ " TEXT UNIQUE, " +
                 ""+COL_6+ " TEXT UNIQUE, "+COL_7+ " TEXT, " +COL_8+" TEXT,"
-                +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT,"+COL_12+" TEXT)");
+                +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT,"+COL_12+" TEXT,"+COL_region+" TEXT,"
+                +COL_district+" TEXT,"+COL_ward+" TEXT)");
+
 
         db.execSQL ("create table "+TABLE_course+ "("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT, "
      +COL_name+" TEXT UNIQUE, "+COL_code+" TEXT UNIQUE, "+COL_credit+" TEXT, "+ COL_semester +" TEXT,"
@@ -70,11 +80,16 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
         db.execSQL ("create table "+TABLE_lecture+"("+COL_1+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 +COL_2+" TEXT,"+COL_3+" TEXT, "+COL_4+" TEXT, "+COL_5+ " TEXT UNIQUE, " +
-     ""+COL_6+ " TEXT UNIQUE,"+COL_code+" TEXT," +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT)");
+     ""+COL_6+ " TEXT UNIQUE,"+COL_code+" TEXT," +COL_9+" TEXT,"+COL_10+" TEXT,"+COL_11+" TEXT," +
+                ""+COL_region+" TEXT,"+COL_district+" TEXT,"+COL_ward+" TEXT)");
 
 
         db.execSQL ("create table "+TABLE_user+"("+COL_1+ " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ""+COL_6+" TEXT UNIQUE,"+COL_12+" TEXT,"+COL_13+" TEXT)");
+
+
+        db.execSQL ("create table "+ TABLE_location +"("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COL_ward +" TEXT,"+ COL_district +" TEXT,"+ COL_region +" TEXT)");
 
 
     }
@@ -85,6 +100,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_course);
         db.execSQL ("DROP TABLE IF EXISTS "+TABLE_lecture);
         db.execSQL ("DROP TABLE IF EXISTS "+TABLE_user);
+        db.execSQL ("DROP TABLE IF EXISTS "+ TABLE_location);
         onCreate(db);
 
     }
@@ -92,7 +108,7 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     public long createStudent(String first_name,String middle_name,String last_name,String email,
                            String username,String programme,String year,
-                           String phone_number,String gender,String DOB ){
+                           String phone_number,String gender,String DOB,String region,String district,String ward ){
 
 
               SQLiteDatabase db=this.getWritableDatabase();
@@ -111,6 +127,9 @@ public class DatabaseSource extends SQLiteOpenHelper {
                content.put (COL_10, gender);
                content.put (COL_11, DOB);
                content.put (COL_12,last_name);
+               content.put (COL_region,region);
+               content.put (COL_district,district);
+               content.put (COL_ward,ward);
 
                long res = db.insert (TABLE_student, null, content);
 
@@ -141,7 +160,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
 
     public long createLecture(String fname,String mname,String lname,
-     String email,String username,String course_code,String phone_number,String gender,String DOB)
+     String email,String username,String course_code,String phone_number,String gender,
+                              String DOB,String region,String district,String ward)
     {
         SQLiteDatabase db=this.getWritableDatabase ();
         ContentValues content=new ContentValues ();
@@ -154,6 +174,9 @@ public class DatabaseSource extends SQLiteOpenHelper {
         content.put (COL_9,phone_number);
         content.put (COL_10,gender);
         content.put (COL_11,DOB);
+        content.put (COL_region,region);
+        content.put (COL_district,district);
+        content.put (COL_ward,ward);
 
         long res=db.insert (TABLE_lecture,null,content);
         db.close ();
@@ -351,4 +374,64 @@ public class DatabaseSource extends SQLiteOpenHelper {
       return user;
     }
 
+    public void insertWard(String ward,String district,String region){
+
+        SQLiteDatabase db=this.getReadableDatabase ();
+        ContentValues contentValues=new ContentValues ();
+        contentValues.put (COL_ward,ward);
+        contentValues.put (COL_district,district);
+        contentValues.put(COL_region,region);
+        db.insert (TABLE_location,null,contentValues);
+    }
+
+    public ArrayList<String> getWard(String region,String district){
+
+        SQLiteDatabase db=this.getWritableDatabase ();
+        ArrayList<String> ward=new ArrayList<> ();
+        String[] selectionArgs={region,district};
+        Cursor cursor=db.rawQuery ("select distinct "+COL_ward+" from "+TABLE_location+"" +
+                " where "+COL_region+"=? and "+COL_district+"=?",selectionArgs);
+        if(cursor.getCount ()>0){
+            while(cursor.moveToNext ()){
+                ward.add (cursor.getString (cursor.getColumnIndex (COL_ward)));
+            }
+        }
+        return ward;
+
+    }
+
+
+    public ArrayList<String> getDistrict(String region){
+
+        SQLiteDatabase db=this.getWritableDatabase ();
+        ArrayList<String> district=new ArrayList<> ();
+        String[] selectionArgs={region};
+        Cursor cursor=db.rawQuery ("select distinct "+COL_district+" from "+TABLE_location+
+                " where "+COL_region+"=?",selectionArgs);
+
+        if(cursor.getCount ()>0){
+            while(cursor.moveToNext ()){
+                district.add (cursor.getString (cursor.getColumnIndex (COL_district)));
+            }
+        }
+        return district;
+
+    }
+
+
+
+    public ArrayList<String> getRegion(){
+
+        SQLiteDatabase db=this.getWritableDatabase ();
+        ArrayList<String> region=new ArrayList<> ();
+        Cursor cursor=db.rawQuery ("select distinct "+COL_region+" from "+TABLE_location,
+                null);
+        if(cursor.getCount ()>0){
+            while(cursor.moveToNext ()){
+                region.add (cursor.getString (cursor.getColumnIndex (COL_region)));
+            }
+        }
+        return region;
+
+    }
 }

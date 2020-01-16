@@ -19,9 +19,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -30,20 +30,24 @@ import android.widget.EditText;
 
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.school.datasource.DatabaseSource;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 import java.util.Random;
 
 
 public class RegisterFragment extends Fragment {
 
     //declare edited text Data type variable
-   private EditText first_nme,middle_nme,last_nme,mEmail,mYear,mPhone,mDate;
-   private RadioGroup mGender;
+    private EditText first_nme,middle_nme,last_nme,mEmail,mYear,mPhone,mDate;
+    private RadioGroup mGender;
+    private String Region;
+    private String District;
+
 
 
 
@@ -131,6 +135,52 @@ public class RegisterFragment extends Fragment {
             }
         };
 
+        //Spinner for location implementation
+        final Spinner sp1=getActivity ().findViewById (R.id.sp1);
+        final Spinner sp2=getActivity ().findViewById (R.id.sp2);
+        final Spinner sp3=getActivity ().findViewById (R.id.sp3);
+
+        ArrayList<String>  regions;
+        regions=db.getRegion ();
+
+        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),R.layout.spinner_item,
+                R.id.region,regions);
+        sp1.setAdapter (arrayAdapter1);
+        Region =sp1.getSelectedItem ().toString ();
+
+       sp1.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
+           @Override
+           public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               Region =parent.getItemAtPosition (position).toString ();
+               ArrayList<String>  districts;
+               districts=db.getDistrict (Region);
+               ArrayAdapter<String> arrayAdapter2=new ArrayAdapter<>(getActivity (),
+                       R.layout.spinner_item,R.id.district,districts);
+               sp2.setAdapter (arrayAdapter2);
+
+               sp2.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
+                   @Override
+                   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                       District =parent.getItemAtPosition (position).toString ();
+                       ArrayList<String> wards=db.getWard (Region, District);
+                       ArrayAdapter<String> arrayAdapter3=new ArrayAdapter<> (getActivity (),
+                               R.layout.spinner_item,R.id.ward,wards);
+                       sp3.setAdapter (arrayAdapter3);
+                   }
+
+                   @Override
+                   public void onNothingSelected(AdapterView<?> parent) {
+
+                   }
+               });
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> parent) {
+
+           }
+       });
+
 
 
         //event handler after clicking register button
@@ -138,7 +188,6 @@ public class RegisterFragment extends Fragment {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-
 
                 int selectedId=mGender.getCheckedRadioButtonId ();
                 RadioButton radioButton=getActivity ().findViewById (selectedId);
@@ -208,22 +257,26 @@ public class RegisterFragment extends Fragment {
                         random.nextInt (10000);
                         String username=username1+String.format ("%04d",random.nextInt (10000));
                         String gender=radioButton.getText ().toString ().trim ();
+                        String L_region=sp1.getSelectedItem ().toString ();
+                        String L_district=sp2.getSelectedItem ().toString ();
+                        String L_ward=sp3.getSelectedItem ().toString ();
 
 
-                        long res = db.createStudent (first_name, middle_name, last_name,
-                                email, username, program, year, phone, gender, date);
+
+                long res = db.createStudent (first_name, middle_name, last_name,
+                   email, username, program, year, phone, gender, date,L_region,L_district,L_ward);
 
                         if (res > 0) {
 
                             db.createUser (username,last_name,"student");
 
-                            Toast.makeText (getActivity ( ).getApplicationContext (),
+                            Toast.makeText (getActivity ().getApplicationContext (),
                                        "succeed register a student",
                                        Toast.LENGTH_SHORT).show ( );
                                Intent intent = new Intent
-                                       (getActivity ( ).getApplicationContext ( ), AdminActivity.class);
+                                  (getActivity ().getApplicationContext (), AdminActivity.class);
                                startActivity (intent);
-                               getActivity ( ).finish ( );
+                               getActivity ().finish ();
 
 
                         } else {

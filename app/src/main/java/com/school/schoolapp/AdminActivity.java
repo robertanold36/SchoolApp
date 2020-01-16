@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
+import com.school.datasource.DatabaseSource;
 
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ import java.util.Objects;
 public class AdminActivity extends AppCompatActivity  {
 
     DrawerLayout drawerLayout;
+    DatabaseSource db;
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -39,6 +41,8 @@ public class AdminActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_admin);
+
+        db=new DatabaseSource (this);
 
 
         //get the loginValues stored by the sharedPreference
@@ -137,6 +141,8 @@ public class AdminActivity extends AppCompatActivity  {
 
             }
         });
+
+
 
 
     }

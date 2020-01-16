@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.school.datasource.Course;
@@ -42,6 +44,8 @@ public class LectureFragment extends Fragment {
 
    private EditText first_nme, middle_nme,last_nme,mEmail,mPhone,mDate;
    private   AutoCompleteTextView mCourse_code;
+    private String Region;
+    private String District;
 
    private RadioGroup mGender;
 
@@ -124,6 +128,55 @@ public class LectureFragment extends Fragment {
             }
         };
 
+
+        //Spinner for location implementation
+        final Spinner sp1=getActivity ().findViewById (R.id.sp1);
+        final Spinner sp2=getActivity ().findViewById (R.id.sp2);
+        final Spinner sp3=getActivity ().findViewById (R.id.sp3);
+
+        ArrayList<String>  regions;
+        regions=db.getRegion ();
+
+        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),R.layout.spinner_item,
+                R.id.region,regions);
+        sp1.setAdapter (arrayAdapter1);
+        Region =sp1.getSelectedItem ().toString ();
+
+        sp1.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Region =parent.getItemAtPosition (position).toString ();
+                ArrayList<String>  districts;
+                districts=db.getDistrict (Region);
+                ArrayAdapter<String> arrayAdapter2=new ArrayAdapter<>(getActivity (),
+                        R.layout.spinner_item,R.id.district,districts);
+                sp2.setAdapter (arrayAdapter2);
+
+                sp2.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        District =parent.getItemAtPosition (position).toString ();
+                        ArrayList<String> wards=db.getWard (Region, District);
+                        ArrayAdapter<String> arrayAdapter3=new ArrayAdapter<> (getActivity (),
+                                R.layout.spinner_item,R.id.ward,wards);
+                        sp3.setAdapter (arrayAdapter3);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
         mRegister.setOnClickListener (new View.OnClickListener ( ) {
             @SuppressLint("ResourceType")
             @Override
@@ -190,12 +243,16 @@ public class LectureFragment extends Fragment {
                     Random random=new Random ();
                     random.nextInt (10000);
                     String username=username1+String.format ("%04d",random.nextInt (10000));
-
                     String gender=radioButton.getText ().toString ().trim ();
+                    String L_region=sp1.getSelectedItem ().toString ();
+                    String L_district=sp2.getSelectedItem ().toString ();
+                    String L_ward=sp3.getSelectedItem ().toString ();
+
+
 
 
                     long res=db.createLecture (first_name,middle_name,last_name,
-                            email,username,course_code,phone,gender,date);
+                       email,username,course_code,phone,gender,date,L_region,L_district,L_ward);
 
                     if(res>0){
 
