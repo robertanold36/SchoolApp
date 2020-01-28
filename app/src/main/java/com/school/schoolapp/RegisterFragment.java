@@ -31,19 +31,22 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.school.datasource.DatabaseSource;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Random;
+
 
 
 public class RegisterFragment extends Fragment {
 
     //declare edited text Data type variable
-    private EditText first_nme,middle_nme,last_nme,mEmail,mYear,mPhone,mDate;
+    private EditText first_nme,middle_nme,last_nme,mEmail,mYear,mPhone;
+    Button mDate;
+    TextView dob;
     private RadioGroup mGender;
     private String Region;
     private String District;
@@ -83,6 +86,7 @@ public class RegisterFragment extends Fragment {
         mPhone=getActivity ().findViewById (R.id.phone);
         mGender=getActivity ().findViewById (R.id.gender);
         mDate=getActivity ().findViewById (R.id.date);
+        dob=getActivity ().findViewById (R.id.datee);
 
         
         mRegister=getActivity ().findViewById(R.id.register);
@@ -131,7 +135,7 @@ public class RegisterFragment extends Fragment {
                 month=month+1;
                 Log.d (TAG,"onDateSet: yyyy/mm/dd: "+ year +"/"+ month +"/"+dayOfMonth);
                 String date=year+"/"+month+"/"+dayOfMonth;
-                mDate.setText (date);
+                dob.setText (date);
             }
         };
 
@@ -143,8 +147,8 @@ public class RegisterFragment extends Fragment {
         ArrayList<String>  regions;
         regions=db.getRegion ();
 
-        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),R.layout.spinner_item,
-                R.id.region,regions);
+        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),android.R.layout.simple_dropdown_item_1line,
+                regions);
         sp1.setAdapter (arrayAdapter1);
         Region =sp1.getSelectedItem ().toString ();
 
@@ -155,7 +159,7 @@ public class RegisterFragment extends Fragment {
                ArrayList<String>  districts;
                districts=db.getDistrict (Region);
                ArrayAdapter<String> arrayAdapter2=new ArrayAdapter<>(getActivity (),
-                       R.layout.spinner_item,R.id.district,districts);
+                       android.R.layout.simple_dropdown_item_1line,districts);
                sp2.setAdapter (arrayAdapter2);
 
                sp2.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
@@ -164,7 +168,7 @@ public class RegisterFragment extends Fragment {
                        District =parent.getItemAtPosition (position).toString ();
                        ArrayList<String> wards=db.getWard (Region, District);
                        ArrayAdapter<String> arrayAdapter3=new ArrayAdapter<> (getActivity (),
-                               R.layout.spinner_item,R.id.ward,wards);
+                               android.R.layout.simple_dropdown_item_1line,wards);
                        sp3.setAdapter (arrayAdapter3);
                    }
 
@@ -196,11 +200,10 @@ public class RegisterFragment extends Fragment {
                 String middle_name=middle_nme.getText ().toString ().trim ();
                 String last_name=last_nme.getText ().toString ().trim ();
                 String email=mEmail.getText ().toString ().trim ();
-                String username1="2000-01-";
                 String program=programme.getText ().toString ().trim ();
                 String year=mYear.getText ().toString ().trim ();
                 String phone=mPhone.getText ().toString ().trim ();
-                String date=mDate.getText ().toString ().trim ();
+                String date=dob.getText ().toString ().trim ();
 
 
                     if(TextUtils.isEmpty (first_name)){
@@ -253,9 +256,6 @@ public class RegisterFragment extends Fragment {
 
                     else {
 
-                        Random random=new Random ();
-                        random.nextInt (10000);
-                        String username=username1+String.format ("%04d",random.nextInt (10000));
                         String gender=radioButton.getText ().toString ().trim ();
                         String L_region=sp1.getSelectedItem ().toString ();
                         String L_district=sp2.getSelectedItem ().toString ();
@@ -264,15 +264,14 @@ public class RegisterFragment extends Fragment {
 
 
                 long res = db.createStudent (first_name, middle_name, last_name,
-                   email, username, program, year, phone, gender, date,L_region,L_district,L_ward);
+                   email, program, year, phone, gender, date,L_region,L_district,L_ward);
 
                         if (res > 0) {
-
-                            db.createUser (username,last_name,"student");
 
                             Toast.makeText (getActivity ().getApplicationContext (),
                                        "succeed register a student",
                                        Toast.LENGTH_SHORT).show ( );
+
                                Intent intent = new Intent
                                   (getActivity ().getApplicationContext (), AdminActivity.class);
                                startActivity (intent);

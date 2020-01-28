@@ -15,6 +15,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_green"
         android:layout_marginBottom="@android:dimen/app_icon_size">
 
         <com.google.android.material.appbar.AppBarLayout

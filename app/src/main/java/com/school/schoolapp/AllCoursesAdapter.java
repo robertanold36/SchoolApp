@@ -60,6 +60,8 @@ public class AllCoursesAdapter extends RecyclerView.Adapter<AllCoursesAdapter.Al
 
 
 
+
+
     }
 
     @Override

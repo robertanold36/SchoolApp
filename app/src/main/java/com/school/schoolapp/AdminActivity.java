@@ -26,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.school.datasource.DatabaseSource;
+import com.school.datasource.Location;
 
 import java.util.Objects;
 
@@ -42,6 +43,7 @@ public class AdminActivity extends AppCompatActivity  {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_admin);
 
+
         db=new DatabaseSource (this);
 
 
@@ -51,7 +53,7 @@ public class AdminActivity extends AppCompatActivity  {
         Toolbar toolbar = findViewById (R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Objects.requireNonNull (getSupportActionBar ( )).setDisplayHomeAsUpEnabled (true);
+        Objects.requireNonNull (getSupportActionBar ()).setDisplayHomeAsUpEnabled (true);
 
         getSupportActionBar().setDisplayShowTitleEnabled (true);
 

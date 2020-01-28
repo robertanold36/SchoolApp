@@ -14,6 +14,8 @@ import java.util.List;
 
 public class DatabaseSource extends SQLiteOpenHelper {
 
+    Location location=new Location ();
+
 
     public static final String DATABASE_NAME="School.db";
     private static final String TABLE_student="studentTable";
@@ -92,6 +94,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
                 + COL_ward +" TEXT,"+ COL_district +" TEXT,"+ COL_region +" TEXT)");
 
 
+
+
     }
 
     @Override
@@ -105,22 +109,52 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     }
 
+    private String generateStudentRegNo(){
+
+        SQLiteDatabase db = this.getReadableDatabase ();
+
+        Cursor c = db.rawQuery ("SELECT * FROM " + TABLE_student , null);
+        int C = (c.getCount ())+1;
+        String cc = String.valueOf (C);
+        String reg = "0000".substring (cc.length()) + cc;
+
+        return reg;
+    }
+
+    private String generateStaffRegNo(){
+
+        SQLiteDatabase db = this.getReadableDatabase ();
+
+        Cursor c = db.rawQuery ("SELECT * FROM " + TABLE_lecture , null);
+        int C = (c.getCount ())+1;
+        String cc = String.valueOf (C);
+        String reg = "0000".substring (cc.length()) + cc;
+
+        return reg;
+    }
+
 
     public long createStudent(String first_name,String middle_name,String last_name,String email,
-                           String username,String programme,String year,
+                           String programme,String year,
                            String phone_number,String gender,String DOB,String region,String district,String ward ){
 
 
               SQLiteDatabase db=this.getWritableDatabase();
 
+              String reg = generateStudentRegNo ();
+              String RegNo = "2019-04-" + reg;
 
                ContentValues content = new ContentValues ();
+               ContentValues contentValues=new ContentValues ();
+               contentValues.put (COL_6,RegNo);
+               contentValues.put (COL_12,last_name);
+               contentValues.put (COL_13,"student");
 
                content.put (COL_2, first_name);
                content.put (COL_3, middle_name);
                content.put (COL_4, last_name);
                content.put (COL_5, email);
-               content.put (COL_6, username);
+               content.put (COL_6, RegNo);
                content.put (COL_7, programme);
                content.put (COL_8, year);
                content.put (COL_9, phone_number);
@@ -131,7 +165,10 @@ public class DatabaseSource extends SQLiteOpenHelper {
                content.put (COL_district,district);
                content.put (COL_ward,ward);
 
-               long res = db.insert (TABLE_student, null, content);
+           db.insert (TABLE_user,null,contentValues);
+
+
+          long res = db.insert (TABLE_student, null, content);
 
                db.close ();
                return res;
@@ -160,16 +197,25 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
 
     public long createLecture(String fname,String mname,String lname,
-     String email,String username,String course_code,String phone_number,String gender,
+     String email,String course_code,String phone_number,String gender,
                               String DOB,String region,String district,String ward)
     {
+
+        String reg = generateStaffRegNo ();
+        String RegNo = "2018-04-" + reg;
+
+        ContentValues contentValues=new ContentValues ();
+        contentValues.put (COL_6,RegNo);
+        contentValues.put (COL_12,lname);
+        contentValues.put (COL_13,"staff");
+
         SQLiteDatabase db=this.getWritableDatabase ();
         ContentValues content=new ContentValues ();
         content.put (COL_2, fname);
         content.put (COL_3, mname);
         content.put (COL_4, lname);
         content.put (COL_5, email);
-        content.put (COL_6, username);
+        content.put (COL_6, RegNo);
         content.put (COL_code,course_code);
         content.put (COL_9,phone_number);
         content.put (COL_10,gender);
@@ -177,6 +223,8 @@ public class DatabaseSource extends SQLiteOpenHelper {
         content.put (COL_region,region);
         content.put (COL_district,district);
         content.put (COL_ward,ward);
+
+        db.insert (TABLE_user,null,contentValues);
 
         long res=db.insert (TABLE_lecture,null,content);
         db.close ();
@@ -200,9 +248,28 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     }
 
+    public User getRoles(String username){
+
+        SQLiteDatabase db=this.getWritableDatabase ();
+        String[] selectionArgs={username};
+        User user=new User ();
+
+        Cursor cursor=db.rawQuery ("select*from "+TABLE_user+" where "
+                +COL_6+"=?",selectionArgs);
+
+        if(cursor.moveToFirst ()){
+            do{
+                user.setRole (cursor.getString (3));
+
+            }while (cursor.moveToNext ());
+        }
+        return user;
+    }
 
 
-     public Student getStudentProgramme(String username){
+
+
+    public Student getStudentProgramme(String username){
 
         SQLiteDatabase db=this.getWritableDatabase ();
         String[] selectionArgs={username};
@@ -356,23 +423,6 @@ public class DatabaseSource extends SQLiteOpenHelper {
 
     }
 
-    public User getRoles(String username){
-
-        SQLiteDatabase db=this.getWritableDatabase ();
-        String[] selectionArgs={username};
-        User user=new User ();
-
-        Cursor cursor=db.rawQuery ("select*from "+TABLE_user+" where "
-                +COL_6+"=?",selectionArgs);
-
-        if(cursor.moveToFirst ()){
-            do{
-                user.setRole (cursor.getString (3));
-
-            }while (cursor.moveToNext ());
-        }
-      return user;
-    }
 
     public void insertWard(String ward,String district,String region){
 

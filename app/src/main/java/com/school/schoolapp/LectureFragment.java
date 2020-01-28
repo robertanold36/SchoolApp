@@ -137,28 +137,31 @@ public class LectureFragment extends Fragment {
         ArrayList<String>  regions;
         regions=db.getRegion ();
 
-        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),R.layout.spinner_item,
-                R.id.region,regions);
+        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),android.R.layout.simple_dropdown_item_1line,
+                regions);
+
         sp1.setAdapter (arrayAdapter1);
+
         Region =sp1.getSelectedItem ().toString ();
 
-        sp1.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
+
+        sp1.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Region =parent.getItemAtPosition (position).toString ();
                 ArrayList<String>  districts;
                 districts=db.getDistrict (Region);
                 ArrayAdapter<String> arrayAdapter2=new ArrayAdapter<>(getActivity (),
-                        R.layout.spinner_item,R.id.district,districts);
+                       android.R.layout.simple_dropdown_item_1line,districts);
                 sp2.setAdapter (arrayAdapter2);
 
-                sp2.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
+                sp2.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
                     @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
                         District =parent.getItemAtPosition (position).toString ();
                         ArrayList<String> wards=db.getWard (Region, District);
                         ArrayAdapter<String> arrayAdapter3=new ArrayAdapter<> (getActivity (),
-                                R.layout.spinner_item,R.id.ward,wards);
+                                android.R.layout.simple_dropdown_item_1line,wards);
                         sp3.setAdapter (arrayAdapter3);
                     }
 
@@ -189,7 +192,6 @@ public class LectureFragment extends Fragment {
                 String middle_name=middle_nme.getText ().toString ().trim ();
                 String last_name=last_nme.getText ().toString ().trim ();
                 String email=mEmail.getText ().toString ().trim ();
-                String username1="2000-2-";
                 String course_code=mCourse_code.getText ().toString ().trim ();
                 String phone=mPhone.getText ().toString ().trim ();
                 String date=mDate.getText ().toString ().trim ();
@@ -240,9 +242,7 @@ public class LectureFragment extends Fragment {
                 else{
 
 
-                    Random random=new Random ();
-                    random.nextInt (10000);
-                    String username=username1+String.format ("%04d",random.nextInt (10000));
+
                     String gender=radioButton.getText ().toString ().trim ();
                     String L_region=sp1.getSelectedItem ().toString ();
                     String L_district=sp2.getSelectedItem ().toString ();
@@ -252,11 +252,9 @@ public class LectureFragment extends Fragment {
 
 
                     long res=db.createLecture (first_name,middle_name,last_name,
-                       email,username,course_code,phone,gender,date,L_region,L_district,L_ward);
+                       email,course_code,phone,gender,date,L_region,L_district,L_ward);
 
                     if(res>0){
-
-                        db.createUser (username,last_name,"staff");
 
 
                         Toast.makeText (getActivity ().getApplicationContext (),

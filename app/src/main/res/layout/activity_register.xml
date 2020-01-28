@@ -140,13 +140,22 @@
         </LinearLayout>
 
 
-        <EditText
+        <Button
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
+            android:background="@drawable/round"
             android:id="@+id/date"
-            android:hint="yyyy/mm/dd"
+            android:text="date of birth"
+            />
+
+        <TextView
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/datee"
             />
 
 

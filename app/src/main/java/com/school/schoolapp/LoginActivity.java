@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                           editor.apply ();
                           Toast.makeText (LoginActivity.this, "your now login"
                                   , Toast.LENGTH_SHORT).show ();
-                          startActivity (new Intent (getApplicationContext (), StudentActivity.class));
+                     startActivity (new Intent (getApplicationContext (), StudentActivity.class));
 
                           finish ();
 
