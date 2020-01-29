@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 
 import androidx.annotation.NonNull;
@@ -30,14 +30,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.school.datasource.Course;
 import com.school.datasource.DatabaseSource;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 
 public class LectureFragment extends Fragment {
@@ -142,12 +138,14 @@ public class LectureFragment extends Fragment {
 
         sp1.setAdapter (arrayAdapter1);
 
-        Region =sp1.getSelectedItem ().toString ();
 
 
         sp1.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener () {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                Region =sp1.getSelectedItem ().toString ();
+
                 Region =parent.getItemAtPosition (position).toString ();
                 ArrayList<String>  districts;
                 districts=db.getDistrict (Region);

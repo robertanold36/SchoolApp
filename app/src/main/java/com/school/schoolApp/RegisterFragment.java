@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 
 import androidx.annotation.NonNull;
@@ -147,14 +147,18 @@ public class RegisterFragment extends Fragment {
         ArrayList<String>  regions;
         regions=db.getRegion ();
 
-        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),android.R.layout.simple_dropdown_item_1line,
+        ArrayAdapter<String> arrayAdapter1=new ArrayAdapter<>(getActivity (),
+                android.R.layout.simple_dropdown_item_1line,
                 regions);
+
         sp1.setAdapter (arrayAdapter1);
-        Region =sp1.getSelectedItem ().toString ();
 
        sp1.setOnItemSelectedListener (new AdapterView.OnItemSelectedListener ( ) {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+               Region =sp1.getSelectedItem ().toString ();
+
                Region =parent.getItemAtPosition (position).toString ();
                ArrayList<String>  districts;
                districts=db.getDistrict (Region);

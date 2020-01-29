@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.school.datasource.DatabaseSource;

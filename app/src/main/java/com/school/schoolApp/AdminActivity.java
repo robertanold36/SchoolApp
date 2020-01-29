@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +26,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.school.datasource.DatabaseSource;
-import com.school.datasource.Location;
 
 import java.util.Objects;
 
@@ -161,26 +160,10 @@ public class AdminActivity extends AppCompatActivity  {
 
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if(drawerLayout.isDrawerOpen (GravityCompat.START)){
-            drawerLayout.closeDrawer (GravityCompat.START);
-
-        }
-        super.onBackPressed ();
-    }
 
     SharedPreferences sharedPreferences;
 
     //method which finish the activity when press back
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode== KeyEvent.KEYCODE_BACK){
-            finish ();
-        }
-        return super.onKeyDown (keyCode, event);
-    }
 
 
 }

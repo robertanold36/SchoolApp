@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;

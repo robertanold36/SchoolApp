@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.school.schoolapp">
+    package="com.school.schoolApp">
 
     <application
         android:allowBackup="true"
@@ -9,21 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LectureActivity"></activity>
-        <activity android:name=".PasswordChanger" />
-        <activity android:name=".ListCourseFragment" />
-        <activity android:name=".SplashScreen">
+        <activity android:name="com.school.schoolApp.LectureActivity"></activity>
+        <activity android:name="com.school.schoolApp.PasswordChanger" />
+        <activity android:name="com.school.schoolApp.ListCourseFragment" />
+        <activity android:name="com.school.schoolApp.SplashScreen">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".LectureFragment" />
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".RegisterFragment" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".StudentActivity">
+        <activity android:name="com.school.schoolApp.LectureFragment" />
+        <activity android:name="com.school.schoolApp.AdminActivity" />
+        <activity android:name="com.school.schoolApp.RegisterFragment" />
+        <activity android:name="com.school.schoolApp.LoginActivity" />
+        <activity android:name="com.school.schoolApp.StudentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

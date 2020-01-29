@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.school.schoolapp;
+package com.school.schoolApp;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
